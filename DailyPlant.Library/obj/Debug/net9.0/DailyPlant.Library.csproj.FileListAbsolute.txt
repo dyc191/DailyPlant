@@ -1,0 +1,12 @@
+D:\Project\JetBrain\DailyPlant\DailyPlant.Library\bin\Debug\net9.0\DailyPlant.Library.deps.json
+D:\Project\JetBrain\DailyPlant\DailyPlant.Library\bin\Debug\net9.0\DailyPlant.Library.dll
+D:\Project\JetBrain\DailyPlant\DailyPlant.Library\bin\Debug\net9.0\DailyPlant.Library.pdb
+D:\Project\JetBrain\DailyPlant\DailyPlant.Library\obj\Debug\net9.0\DailyPlant.Library.csproj.AssemblyReference.cache
+D:\Project\JetBrain\DailyPlant\DailyPlant.Library\obj\Debug\net9.0\DailyPlant.Library.GeneratedMSBuildEditorConfig.editorconfig
+D:\Project\JetBrain\DailyPlant\DailyPlant.Library\obj\Debug\net9.0\DailyPlant.Library.AssemblyInfoInputs.cache
+D:\Project\JetBrain\DailyPlant\DailyPlant.Library\obj\Debug\net9.0\DailyPlant.Library.AssemblyInfo.cs
+D:\Project\JetBrain\DailyPlant\DailyPlant.Library\obj\Debug\net9.0\DailyPlant.Library.csproj.CoreCompileInputs.cache
+D:\Project\JetBrain\DailyPlant\DailyPlant.Library\obj\Debug\net9.0\DailyPlant.Library.dll
+D:\Project\JetBrain\DailyPlant\DailyPlant.Library\obj\Debug\net9.0\refint\DailyPlant.Library.dll
+D:\Project\JetBrain\DailyPlant\DailyPlant.Library\obj\Debug\net9.0\DailyPlant.Library.pdb
+D:\Project\JetBrain\DailyPlant\DailyPlant.Library\obj\Debug\net9.0\ref\DailyPlant.Library.dll
