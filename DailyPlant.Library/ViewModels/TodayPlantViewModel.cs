@@ -8,7 +8,7 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Avalonia.Media.Imaging;
-using DailyPlant.Helpers;
+using DailyPlant.Library.Helpers;
 
 namespace DailyPlant.Library.ViewModels
 {
@@ -119,3 +119,4 @@ namespace DailyPlant.Library.ViewModels
         
     }
 }
+
