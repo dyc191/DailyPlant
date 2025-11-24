@@ -1,13 +1,19 @@
-﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using DailyPlant.Library.ViewModels;
 
-namespace DailyPlant.Views;
-
-public partial class TodayPlantView : UserControl
+namespace DailyPlant.Views
 {
-    public TodayPlantView()
+    public partial class TodayPlantView : UserControl
     {
-        InitializeComponent();
+        public TodayPlantView()
+        {
+            InitializeComponent();
+        }
+
+        private void InitializeComponent()
+        {
+            AvaloniaXamlLoader.Load(this);
+        }
     }
 }
