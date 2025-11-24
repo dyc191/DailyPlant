@@ -12,18 +12,28 @@ using Projektanker.Icons.Avalonia.FontAwesome;
 
 namespace DailyPlant;
 
-public partial class App : Application {
-    public override void Initialize() {
+public partial class App : Application 
+{
+    public override void Initialize() 
+    {
         AvaloniaXamlLoader.Load(this);
+        
+        if (!Resources.ContainsKey("ServiceLocator"))
+        {
+            Resources.Add("ServiceLocator", new ServiceLocator());
+        }
     }
 
     public override void OnFrameworkInitializationCompleted() {
         
         IconProvider.Current
             .Register<FontAwesomeIconProvider>();
-        if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime
-            desktop) {
-            desktop.MainWindow = new MainWindow();
+        if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop) 
+        {
+            desktop.MainWindow = new MainWindow
+            {
+                DataContext = ServiceLocator.Current.MainWindowViewModel
+            };
 
         }
 
