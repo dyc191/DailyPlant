@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Avalonia;
 using Avalonia.Controls;
 using DailyPlant.Library.Services;
@@ -68,6 +68,8 @@ public class ServiceLocator {
             .AddSingleton<IRootNavigationService, RootNavigationService>();
         serviceCollection
             .AddSingleton<IMenuNavigationService, MenuNavigationService>();
+        
+        serviceCollection.AddSingleton<DailyService>();
         
         _serviceProvider = serviceCollection.BuildServiceProvider();
          
