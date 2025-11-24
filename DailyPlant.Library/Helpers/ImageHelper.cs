@@ -4,7 +4,7 @@ using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace DailyPlant.Helpers
+namespace DailyPlant.Library.Helpers
 {
     public static class ImageLoader
     {
