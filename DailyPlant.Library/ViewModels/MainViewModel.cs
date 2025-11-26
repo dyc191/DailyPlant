@@ -1,5 +1,7 @@
-﻿using System.Collections.ObjectModel;
+using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Windows.Input;
+using Avalonia.Data.Converters;
 using CommunityToolkit.Mvvm.Input;
 using DailyPlant.Library.Services;
 
@@ -7,14 +9,33 @@ namespace DailyPlant.Library.ViewModels;
 
 public class MainViewModel : ViewModelBase {
     private readonly IMenuNavigationService _menuNavigationService;
+    
 
-    public MainViewModel(IMenuNavigationService menuNavigationService) {
+    public MainViewModel(IMenuNavigationService menuNavigationService)
+    {
         _menuNavigationService = menuNavigationService;
 
         OpenPaneCommand = new RelayCommand(OpenPane);
         ClosePaneCommand = new RelayCommand(ClosePane);
         GoBackCommand = new RelayCommand(GoBack);
-        OnMenuTappedCommand = new RelayCommand(OnMenuTapped);
+        OnMenuTappedCommand = new RelayCommand<object>(OnMenuTapped); 
+    
+        // 设置初始选中的菜单项
+        SelectedMenuItem = MenuItem.MenuItems.First();
+    }
+    
+    public void OnMenuTapped(object parameter)
+    {
+        if (parameter is string viewName)
+        {
+            // 根据视图名称找到对应的菜单项
+            var menuItem = MenuItem.MenuItems.FirstOrDefault(p => p.View == viewName);
+            if (menuItem != null)
+            {
+                SelectedMenuItem = menuItem;
+                _menuNavigationService.NavigateTo(menuItem.View);
+            }
+        }
     }
 
     private string _title = "DailyPlant";
@@ -67,14 +88,6 @@ public class MainViewModel : ViewModelBase {
 
     public ICommand OnMenuTappedCommand { get; }
 
-    public void OnMenuTapped() {
-        if (SelectedMenuItem is null) {
-            return;
-        }
-
-        _menuNavigationService.NavigateTo(SelectedMenuItem.View);
-    }
-
     public ObservableCollection<ViewModelBase> ContentStack { get; } = [];
 
     public ICommand GoBackCommand { get; }
@@ -89,22 +102,46 @@ public class MainViewModel : ViewModelBase {
     }
 }
 
-public class MenuItem {
-    public string View { get; private init; }
-    public string Name { get; private init; }
+public class MenuItem
+{
+    public string View { get; set; }
+    public string Name { get; set; }
 
-    private MenuItem() { }
+    public MenuItem() { }
+
+    private MenuItem(string name, string view) 
+    { 
+        Name = name; 
+        View = view; 
+    }
 
     private static MenuItem TodayPlantView =>
-        new() { Name = "今日植物", View = MenuNavigationConstant.TodayPlantView };
+        new("今日植物", MenuNavigationConstant.TodayPlantView);
 
     private static MenuItem EncyclopediaView =>
-        new() { Name = "植物百科", View = MenuNavigationConstant.EncyclopediaView };
+        new("植物百科", MenuNavigationConstant.EncyclopediaView);
 
     private static MenuItem PhotoRecognitionView =>
-        new() { Name = "拍照识图", View = MenuNavigationConstant.PhotoRecognitionView };
+        new("拍照识图", MenuNavigationConstant.PhotoRecognitionView);
 
     public static IEnumerable<MenuItem> MenuItems { get; } = [
         TodayPlantView, EncyclopediaView, PhotoRecognitionView
     ];
+}
+
+public class MenuItemEqualsConverter : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        if (value is MenuItem selectedItem && parameter is MenuItem currentItem)
+        {
+            return selectedItem.View == currentItem.View;
+        }
+        return false;
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
 }
