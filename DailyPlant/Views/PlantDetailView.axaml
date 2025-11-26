@@ -1,0 +1,193 @@
+<!-- PlantDetailView.axaml -->
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:DailyPlant.Library.ViewModels"
+             x:Class="DailyPlant.Views.PlantDetailView">
+    
+    <UserControl.Resources>
+        <LinearGradientBrush x:Key="GlassEffect" StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Offset="0" Color="#20FFFFFF"/>
+            <GradientStop Offset="1" Color="#10FFFFFF"/>
+        </LinearGradientBrush>
+        
+        <LinearGradientBrush x:Key="PrimaryGradient" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Offset="0" Color="#4CAF50"/>
+            <GradientStop Offset="1" Color="#45a049"/>
+        </LinearGradientBrush>
+    </UserControl.Resources>
+    
+    <UserControl.Styles>
+        <Style Selector="TextBlock.plant-title">
+            <Setter Property="FontSize" Value="32"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+        
+        <Style Selector="TextBlock.plant-subtitle">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Foreground" Value="#E8E8E8"/>
+            <Setter Property="Margin" Value="0,0,0,15"/>
+        </Style>
+        
+        <Style Selector="TextBlock.plant-description">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="LineHeight" Value="1.6"/>
+        </Style>
+        
+        <Style Selector="Border.glass-card">
+            <Setter Property="Background" Value="{DynamicResource GlassEffect}"/>
+            <Setter Property="CornerRadius" Value="20"/>
+            <Setter Property="Padding" Value="30"/>
+            <Setter Property="Margin" Value="20"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#40FFFFFF"/>
+        </Style>
+        
+        <Style Selector="Button.primary-button">
+            <Setter Property="Background" Value="{DynamicResource PrimaryGradient}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="Padding" Value="25,12"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+        
+        <Style Selector="Button.primary-button:pointerover">
+            <Setter Property="Background" Value="#3D8B40"/>
+        </Style>
+        
+        <Style Selector="ProgressBar.confidence-bar">
+            <Setter Property="Height" Value="12"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Background" Value="#404040"/>
+        </Style>
+    </UserControl.Styles>
+
+    <Grid>
+        <!-- 清晰的背景图片 -->
+        <Image Source="{Binding PlantImage}" 
+               Stretch="UniformToFill"/>
+    
+        <!-- 轻微渐变遮罩，几乎不影响背景清晰度 -->
+        <Rectangle>
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                    <GradientStop Offset="0" Color="#60000000"/>    <!-- 顶部：37.5% 暗度 -->
+                    <GradientStop Offset="0.2" Color="#30000000"/>  <!-- 20%位置：18.75% 暗度 -->
+                    <GradientStop Offset="0.4" Color="#10000000"/>  <!-- 40%位置：6.25% 暗度 -->
+                    <GradientStop Offset="0.6" Color="#10000000"/>  <!-- 60%位置：6.25% 暗度 -->
+                    <GradientStop Offset="0.8" Color="#30000000"/>  <!-- 80%位置：18.75% 暗度 -->
+                    <GradientStop Offset="1" Color="#60000000"/>    <!-- 底部：37.5% 暗度 -->
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <!-- 加载状态 -->
+        <Border IsVisible="{Binding IsLoading}"
+                Background="#80000000"
+                ZIndex="100">
+            <StackPanel HorizontalAlignment="Center" 
+                        VerticalAlignment="Center" 
+                        Spacing="15">
+                <ProgressBar Width="60" Height="60" 
+                             IsIndeterminate="True" 
+                             Foreground="#4CAF50"/>
+                <TextBlock Text="正在加载植物信息..." 
+                          Foreground="White" 
+                          FontSize="18" 
+                          HorizontalAlignment="Center"/>
+            </StackPanel>
+        </Border>
+
+        <!-- 主要内容区域 -->
+        <ScrollViewer Padding="10">
+            <StackPanel HorizontalAlignment="Stretch" 
+                        VerticalAlignment="Top"
+                        MaxWidth="900"
+                        Margin="20,40">
+                
+                <!-- 植物名称和可信度卡片 -->
+                <Border Classes="glass-card">
+                    <StackPanel>
+                        <TextBlock Classes="plant-title" 
+                                   Text="{Binding PlantName}"
+                                   HorizontalAlignment="Center"/>
+                        
+                        <StackPanel Margin="0,20,0,0" Spacing="10">
+                            <TextBlock Text="{Binding ConfidenceText}"
+                                       Classes="plant-subtitle"
+                                       HorizontalAlignment="Center"/>
+                            
+                            <ProgressBar Value="{Binding Score}"
+                                         Maximum="1"
+                                         Classes="confidence-bar">
+                                <ProgressBar.Foreground>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                        <GradientStop Offset="0" Color="#4CAF50"/>
+                                        <GradientStop Offset="0.7" Color="#8BC34A"/>
+                                        <GradientStop Offset="1" Color="#CDDC39"/>
+                                    </LinearGradientBrush>
+                                </ProgressBar.Foreground>
+                            </ProgressBar>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <!-- 百科信息卡片 - 使用 TextBox 以获得更好的文本显示 -->
+                <Border Classes="glass-card" Margin="0,25,0,0">
+                    <StackPanel>
+                        <TextBlock Text="🌿 百科信息" 
+                                   Classes="plant-title"
+                                   FontSize="24"
+                                   Margin="0,0,0,20"/>
+                        
+                        <!-- 使用 TextBox 并设置合适的属性 -->
+                        <Border Height="400"
+                                Background="Transparent">
+                            <TextBox Text="{Binding Description}"
+                                     IsReadOnly="True"
+                                     BorderThickness="0"
+                                     Background="Transparent"
+                                     Foreground="White"
+                                     FontSize="16"
+                                     TextWrapping="Wrap"
+                                     AcceptsReturn="True"
+                                     VerticalAlignment="Stretch"
+                                     HorizontalAlignment="Stretch"/>
+                        </Border>
+                    </StackPanel>
+                </Border>
+
+                <!-- 操作按钮区域 -->
+                <StackPanel Orientation="Horizontal" 
+                            HorizontalAlignment="Center"
+                            Margin="0,40,0,20"
+                            Spacing="25">
+                    
+                    <Button Content="🔙 返回识别"
+                            Command="{Binding GoBackCommand}"
+                            Classes="primary-button"
+                            MinWidth="120"/>
+                    
+                    <Button Content="📤 分享信息"
+                            Command="{Binding ShareInfoCommand}"
+                            Classes="primary-button"
+                            MinWidth="120">
+                        <Button.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Offset="0" Color="#2196F3"/>
+                                <GradientStop Offset="1" Color="#1976D2"/>
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>
