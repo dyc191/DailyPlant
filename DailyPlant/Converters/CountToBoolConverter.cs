@@ -1,18 +1,24 @@
-﻿using System;
+using System;
 using System.Globalization;
 using Avalonia.Data.Converters;
 
-namespace DailyPlant.Converters;
+namespace DailyPlant.Converters
+{
+    public class CountToBoolConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is int count && parameter is string paramString)
+            {
+                int param = int.Parse(paramString);
+                return count > param;
+            }
+            return false;
+        }
 
-public class CountToBoolConverter : IValueConverter {
-    public object Convert(object value, Type targetType, object parameter,
-        CultureInfo culture) =>
-        value is int count && parameter is string conditionString &&
-        int.TryParse(conditionString, out var condition)
-            ? count > condition
-            : null;
-
-    public object ConvertBack(object value, Type targetType, object parameter,
-        CultureInfo culture) =>
-        throw new InvalidOperationException();
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotSupportedException();
+        }
+    }
 }
