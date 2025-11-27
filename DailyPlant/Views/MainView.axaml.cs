@@ -50,7 +50,7 @@ namespace DailyPlant.Views
             {
                 ApplySelectedStyle(EncyclopediaButton);
             }
-            else if (selectedView == Library.Services.MenuNavigationConstant.PhotoRecognitionView)
+            else if (selectedView == Library.Services.MenuNavigationConstant.TakePhotoView)
             {
                 ApplySelectedStyle(PhotoRecognitionButton);
             }
@@ -71,3 +71,4 @@ namespace DailyPlant.Views
         }
     }
 }
+
