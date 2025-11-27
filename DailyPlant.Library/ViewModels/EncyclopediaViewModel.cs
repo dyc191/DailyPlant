@@ -5,6 +5,7 @@ using DailyPlant.Library.Models;
 using DailyPlant.Library.Data;
 using System.Collections.ObjectModel;
 using System.Linq;
+using DailyPlant.Library.Services;
 
 namespace DailyPlant.Library.ViewModels
 {
@@ -12,6 +13,7 @@ namespace DailyPlant.Library.ViewModels
     {
         private readonly PlantDbContext _dbContext;
         private List<Plant> _allPlants = new();
+        private readonly IContentNavigationService _navigationService;
 
         [ObservableProperty]
         private ObservableCollection<Plant> _plants = new();
@@ -31,11 +33,19 @@ namespace DailyPlant.Library.ViewModels
         [ObservableProperty]
         private bool _isLoading = false;
 
-        public EncyclopediaViewModel()
+        public EncyclopediaViewModel(IContentNavigationService navigationService)
         {
             _dbContext = new PlantDbContext();
+            _navigationService = navigationService;
             LoadPlants();
         }
+        
+        [RelayCommand]
+        private void ShowPlantDetail(Plant plant)
+        {
+            _navigationService.NavigateTo(ContentNavigationConstant.PlantView, plant);
+        }
+
 
         private async void LoadPlants()
         {

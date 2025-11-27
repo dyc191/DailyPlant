@@ -22,10 +22,10 @@ namespace DailyPlant.Library.ViewModels
         public TodayPlantViewModel(DailyService plantService)
         {
             _plantService = plantService;
-            LoadRandomPlantCommand = new AsyncRelayCommand(LoadRandomPlantAsync);
+            LoadSeasonalPlantCommand = new AsyncRelayCommand(LoadSeasonalPlantAsync);
             
-            // 初始化加载一个植物
-            _ = LoadRandomPlantAsync();
+            // 初始化加载一个当季植物
+            _ = LoadSeasonalPlantAsync();
         }
 
         public Plant CurrentPlant
@@ -74,26 +74,45 @@ namespace DailyPlant.Library.ViewModels
             }
         }
 
-        public ICommand LoadRandomPlantCommand { get; }
+        public ICommand LoadSeasonalPlantCommand { get; }
 
-        private async Task LoadRandomPlantAsync()
+        private async Task LoadSeasonalPlantAsync()
         {
             if (IsLoading) return;
 
             IsLoading = true;
             try
             {
-                CurrentPlant = await _plantService.GetRandomPlantAsync();
+                string currentSeason = GetCurrentSeason();
+                CurrentPlant = await _plantService.GetPlantBySeasonAsync(currentSeason);
             }
             catch (System.Exception ex)
             {
                 // 处理错误
-                System.Diagnostics.Debug.WriteLine($"加载植物数据失败: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"加载当季植物数据失败: {ex.Message}");
             }
             finally
             {
                 IsLoading = false;
             }
+        }
+        
+        private string GetCurrentSeason()
+        {
+            int month = DateTime.Now.Month;
+            
+            // 春季: 3-5月
+            if (month >= 3 && month <= 5)
+                return "春";
+            // 夏季: 6-8月
+            else if (month >= 6 && month <= 8)
+                return "夏";
+            // 秋季: 9-11月
+            else if (month >= 9 && month <= 11)
+                return "秋";
+            // 冬季: 12-2月
+            else
+                return "冬";
         }
         
         private async Task LoadPlantImageAsync()
