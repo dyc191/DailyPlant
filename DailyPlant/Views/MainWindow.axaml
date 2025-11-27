@@ -9,7 +9,7 @@
         d:DesignHeight="450"
         x:Class="DailyPlant.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
-        Title="DailyPoetryA"
+        Title="DailyPlant"
         DataContext="{Binding MainWindowViewModel, Source={StaticResource ServiceLocator}}"
         Content="{Binding Content}">
         <i:Interaction.Behaviors>
@@ -18,3 +18,4 @@
                 </ia:EventTriggerBehavior>
         </i:Interaction.Behaviors>
 </Window>
+
