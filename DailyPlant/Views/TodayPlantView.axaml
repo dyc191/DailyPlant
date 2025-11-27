@@ -2,7 +2,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:converters="clr-namespace:DailyPlant.Library.Converters;assembly=DailyPlant.Library"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="DailyPlant.Views.TodayPlantView"
              d:DataContext="{Binding TodayPlantViewModel, Source={StaticResource ServiceLocator}}">
@@ -34,13 +33,30 @@
                         Spacing="10"
                         VerticalAlignment="Center">
                 
-                <!-- 植物名称 -->
-                <TextBlock Text="{Binding CurrentPlant.Name}" 
-                          FontSize="28" 
-                          FontWeight="Bold" 
-                          Foreground="White"
-                          HorizontalAlignment="Center"
-                          TextWrapping="Wrap"/>
+                <StackPanel Orientation="Horizontal" 
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Spacing="20"> 
+                    <!-- 植物名称 -->
+                    <TextBlock Text="{Binding CurrentPlant.Name}" 
+                              FontSize="28" 
+                              FontWeight="Bold" 
+                              Foreground="White"
+                              TextWrapping="Wrap"
+                              VerticalAlignment="Center"/>
+                    
+                    <!-- 花期季节标签 -->
+                    <Border Background="#60606060" 
+                            CornerRadius="10"
+                            Padding="8,4"
+                            VerticalAlignment="Center">
+                        <TextBlock Text="{Binding CurrentPlant.SeasonBloom}"
+                                  FontSize="12"
+                                  Foreground="#DDDDDD" 
+                                  FontWeight="SemiBold"
+                                  VerticalAlignment="Center"/>
+                    </Border>
+                </StackPanel>
                 
                 <!-- 植物描述 -->
                 <TextBlock Text="{Binding CurrentPlant.Description}" 
@@ -73,7 +89,5 @@
                 </Button>
             </StackPanel>
         </Grid>
-        
-        
     </Grid>
 </UserControl>
