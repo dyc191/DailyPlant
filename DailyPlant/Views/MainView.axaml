@@ -177,9 +177,9 @@
                             Padding="20,15"
                             FontSize="14"
                             Command="{Binding OnMenuTappedCommand}"
-                            CommandParameter="{x:Static services:MenuNavigationConstant.PhotoRecognitionView}">
+                            CommandParameter="{x:Static services:MenuNavigationConstant.TakePhotoView}">
                         <Button.Tag>
-                            <lvm:MenuItem View="{x:Static services:MenuNavigationConstant.PhotoRecognitionView}" Name="拍照识图"/>
+                            <lvm:MenuItem View="{x:Static services:MenuNavigationConstant.TakePhotoView}" Name="拍照识图"/>
                         </Button.Tag>
                         <StackPanel Orientation="Horizontal" Spacing="8">
                             <icon:Icon Value="fa-camera" Width="14" Height="14"/>
@@ -200,3 +200,4 @@
         </Border>
     </Grid>
 </UserControl>
+
