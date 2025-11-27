@@ -122,7 +122,7 @@ public class MenuItem
         new("植物百科", MenuNavigationConstant.EncyclopediaView);
 
     private static MenuItem PhotoRecognitionView =>
-        new("拍照识图", MenuNavigationConstant.PhotoRecognitionView);
+        new("拍照识图", MenuNavigationConstant.TakePhotoView);
 
     public static IEnumerable<MenuItem> MenuItems { get; } = [
         TodayPlantView, EncyclopediaView, PhotoRecognitionView
@@ -145,3 +145,4 @@ public class MenuItemEqualsConverter : IValueConverter
         throw new NotImplementedException();
     }
 }
+
