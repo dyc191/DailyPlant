@@ -1,5 +1,4 @@
-﻿<!-- EncyclopediaView.axaml -->
-<UserControl xmlns="https://github.com/avaloniaui"
+﻿<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -8,7 +7,10 @@
              xmlns:controls="using:DailyPlant.Library.Controls"
              mc:Ignorable="d" 
              d:DesignWidth="1200" d:DesignHeight="800"
-             x:Class="DailyPlant.Views.EncyclopediaView">
+             x:Class="DailyPlant.Views.EncyclopediaView"
+             d:DataContext="{Binding EncyclopediaViewModel, Source={StaticResource ServiceLocator}}">
+            
+             
 
     <UserControl.Resources>
         <converters:IntToBoolConverter x:Key="IntToBoolConverter"/>
@@ -96,17 +98,18 @@
                                 BorderBrush="#E0E0E0"
                                 BorderThickness="1"
                                 CornerRadius="8"
-                                Width="280" Height="380" 
+                                Width="280" Height="400"  
                                 Margin="10">
                             <Grid Margin="15">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="180"/>
+                                    <RowDefinition Height="160"/> <!-- 稍微减少图片高度 -->
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/> <!-- 描述区域自动扩展 -->
+                                    <RowDefinition Height="40"/> <!-- 固定按钮区域高度 -->
                                 </Grid.RowDefinitions>
 
                                 <!-- 植物图片 - 使用异步加载控件 -->
@@ -119,7 +122,7 @@
                                         Stretch="UniformToFill"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
-                                        MaxHeight="160"
+                                        MaxHeight="140" 
                                         MaxWidth="240"/>
                                 </Border>
 
@@ -185,7 +188,7 @@
                                     </StackPanel>
                                 </Grid>
 
-                                <!-- 描述 -->
+                                <!-- 描述 - 可滚动区域 -->
                                 <TextBlock Grid.Row="6" 
                                            Text="{Binding Description}" 
                                            FontSize="11" 
@@ -193,6 +196,21 @@
                                            TextWrapping="Wrap"
                                            MaxHeight="60"
                                            TextTrimming="CharacterEllipsis"/>
+                                
+                                <!-- 查看详情按钮 - 固定在底部 -->
+                                <Button Grid.Row="7" 
+                                        Content="查看详情" 
+                                        Command="{Binding DataContext.ShowPlantDetailCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                        CommandParameter="{Binding}"
+                                        Background="#4CAF50"
+                                        Foreground="White"
+                                        FontSize="12"
+                                        Padding="10,5"
+                                        CornerRadius="4"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Center"
+                                        Margin="0"/>
+                                
                             </Grid>
                         </Border>
                     </DataTemplate>

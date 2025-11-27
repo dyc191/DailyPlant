@@ -70,7 +70,7 @@
                 
                 <!-- 刷新按钮 -->
                 <Button Content="换一个植物" 
-                        Command="{Binding LoadRandomPlantCommand}"
+                        Command="{Binding LoadSeasonalPlantCommand}"
                         HorizontalAlignment="Center" 
                         Margin="0,10,0,0"
                         Padding="20,10"
