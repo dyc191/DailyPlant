@@ -15,4 +15,6 @@ public static class ContentNavigationConstant {
     
     public const string PlantDetailView = nameof(PlantDetailView);
     
+    public const string PlantView = nameof(PlantView);
+    
 }
