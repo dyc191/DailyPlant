@@ -1,123 +1,96 @@
-using Avalonia.Input;
-using DailyPlant.Library.Models;
-using DailyPlant.Library.Services;
-using DailyPlant.Library.Commands;
-using DailyPlant.Library.ViewModels;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using Avalonia.Media.Imaging;
-using DailyPlant.Library.Helpers;
-
-namespace DailyPlant.Library.ViewModels
-{
-    public class TodayPlantViewModel : ViewModelBase
-    {
-        private readonly DailyService _plantService;
-        private Plant _currentPlant;
-        private bool _isLoading;
-        private Bitmap? _plantImage;
-
-        public TodayPlantViewModel(DailyService plantService)
-        {
-            _plantService = plantService;
-            LoadRandomPlantCommand = new AsyncRelayCommand(LoadRandomPlantAsync);
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="DailyPlant.Views.TodayPlantView"
+             d:DataContext="{Binding TodayPlantViewModel, Source={StaticResource ServiceLocator}}">
+    
+    <Grid>
+        <!-- 背景图片 -->
+        <Image Source="{Binding PlantImage}" 
+               Stretch="UniformToFill"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"/>
+        
+        <!-- 底部信息面板 -->
+        <Grid VerticalAlignment="Bottom" 
+              Margin="20"
+              Height="180">
             
-            // 初始化加载一个植物
-            _ = LoadRandomPlantAsync();
-        }
-
-        public Plant CurrentPlant
-        {
-            get => _currentPlant;
-            set
-            {
-                _currentPlant = value;
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(HasDetails));
-                _ = LoadPlantImageAsync();
-            }
-        }
-        
-        public Bitmap? PlantImage
-        {
-            get => _plantImage;
-            set
-            {
-                _plantImage = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public bool IsLoading
-        {
-            get => _isLoading;
-            set
-            {
-                _isLoading = value;
-                OnPropertyChanged();
-            }
-        }
-        
-        public bool HasDetails
-        {
-            get
-            {
-                if (CurrentPlant == null) return false;
+            <!-- 虚化背景 -->
+            <Border Background="#80000000" 
+                    CornerRadius="15"
+                    Opacity="0.8">
+                <!-- 高斯模糊效果 -->
+                <Border.Effect>
+                    <BlurEffect Radius="10"/>
+                </Border.Effect>
+            </Border>
+            
+            <!-- 内容面板 -->
+            <StackPanel Margin="25,20" 
+                        Spacing="10"
+                        VerticalAlignment="Center">
                 
-                return !string.IsNullOrEmpty(CurrentPlant.Category) ||
-                       !string.IsNullOrEmpty(CurrentPlant.SeasonSowing) ||
-                       !string.IsNullOrEmpty(CurrentPlant.SeasonBloom) ||
-                       !string.IsNullOrEmpty(CurrentPlant.Zone) ||
-                       !string.IsNullOrEmpty(CurrentPlant.Water);
-            }
-        }
+                <StackPanel Orientation="Horizontal" 
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Spacing="20"> 
+                    <!-- 植物名称 -->
+                    <TextBlock Text="{Binding CurrentPlant.Name}" 
+                              FontSize="28" 
+                              FontWeight="Bold" 
+                              Foreground="White"
+                              TextWrapping="Wrap"
+                              VerticalAlignment="Center"/>
+                    
+                    <!-- 花期季节标签 -->
+                    <Border Background="#60606060" 
+                            CornerRadius="10"
+                            Padding="8,4"
+                            VerticalAlignment="Center">
+                        <TextBlock Text="{Binding CurrentPlant.SeasonBloom}"
+                                  FontSize="12"
+                                  Foreground="#DDDDDD" 
+                                  FontWeight="SemiBold"
+                                  VerticalAlignment="Center"/>
+                    </Border>
+                </StackPanel>
+                
+                <!-- 植物描述 -->
+                <TextBlock Text="{Binding CurrentPlant.Description}" 
+                          FontSize="16" 
+                          Foreground="White"
+                          TextWrapping="Wrap"
+                          TextAlignment="Center"
+                          Opacity="0.9"
+                          MaxHeight="60"
+                          TextTrimming="CharacterEllipsis"/>
+                
+                <!-- 刷新按钮 -->
+                <Button Content="换一个植物" 
+                        Command="{Binding LoadRandomPlantCommand}"
+                        HorizontalAlignment="Center" 
+                        Margin="0,10,0,0"
+                        Padding="20,10"
+                        Background="#60FFFFFF"
+                        Foreground="White"
+                        BorderThickness="0"
+                        CornerRadius="20"
+                        FontSize="14"
+                        FontWeight="SemiBold">
+                    <Button.Styles>
+                        <Style Selector="Button:pointerover">
+                            <Setter Property="Background" Value="#80FFFFFF"/>
+                            <Setter Property="Foreground" Value="#FF333333"/>
+                        </Style>
+                    </Button.Styles>
+                </Button>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>
 
-        public ICommand LoadRandomPlantCommand { get; }
-
-        private async Task LoadRandomPlantAsync()
-        {
-            if (IsLoading) return;
-
-            IsLoading = true;
-            try
-            {
-                CurrentPlant = await _plantService.GetRandomPlantAsync();
-            }
-            catch (System.Exception ex)
-            {
-                // 处理错误
-                System.Diagnostics.Debug.WriteLine($"加载植物数据失败: {ex.Message}");
-            }
-            finally
-            {
-                IsLoading = false;
-            }
-        }
-        
-        private async Task LoadPlantImageAsync()
-        {
-            if (CurrentPlant == null || string.IsNullOrEmpty(CurrentPlant.Image))
-            {
-                PlantImage = null;
-                return;
-            }
-
-            try
-            {
-                System.Diagnostics.Debug.WriteLine($"开始加载植物图片: {CurrentPlant.Image}");
-                PlantImage = await ImageLoader.LoadImageAsync(CurrentPlant.Image);
-                System.Diagnostics.Debug.WriteLine($"图片加载完成: {PlantImage != null}");
-            }
-            catch (System.Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"加载植物图片失败: {ex.Message}");
-                PlantImage = null;
-            }
-        }
-        
-    }
-}
 
 
