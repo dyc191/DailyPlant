@@ -41,7 +41,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            <!-- 移除固定的底部行，将按钮放在ScrollViewer内 -->
         </Grid.RowDefinitions>
 
         <!-- 标题栏 -->
@@ -86,41 +85,30 @@
             </Grid>
         </Border>
 
-        <!-- 植物详情内容 - 包含底部按钮 -->
-        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-            <Grid Margin="0,0,0,20">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="300"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/> <!-- 新增一行用于底部按钮 -->
-                </Grid.RowDefinitions>
-
+        <!-- 植物详情内容 -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="0,0,0,20">
+            <StackPanel Spacing="20">
                 <!-- 植物图片 -->
-                <Border Grid.Row="0" 
-                        Background="{StaticResource WhiteGradient}"
+                <Border Background="{StaticResource WhiteGradient}"
                         CornerRadius="16"
-                        Margin="0,0,0,25"
                         BorderBrush="#E0E0E0"
-                        BorderThickness="1">
+                        BorderThickness="1"
+                        HorizontalAlignment="Center"
+                        Width="400" Height="300">
                     <controls:AsyncImage 
                         SourceUrl="{Binding CurrentPlant.Image}"
                         Stretch="Uniform"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         MaxHeight="280"
-                        MaxWidth="400"/>
+                        MaxWidth="380"/>
                 </Border>
 
                 <!-- 分类标签 -->
-                <Border Grid.Row="1" 
-                        Background="{StaticResource LightGreenGradient}" 
+                <Border Background="{StaticResource LightGreenGradient}" 
                         CornerRadius="20" 
                         Padding="15,8" 
-                        HorizontalAlignment="Center"
-                        Margin="0,0,0,20">
+                        HorizontalAlignment="Center">
                     <TextBlock Text="{Binding CurrentPlant.Category}" 
                                FontSize="14" 
                                Foreground="White"
@@ -129,7 +117,7 @@
                 </Border>
 
                 <!-- 基本信息网格 -->
-                <Grid Grid.Row="2" ColumnDefinitions="*,*" Margin="0,0,0,20">
+                <Grid ColumnDefinitions="*,*" Margin="0,10,0,0">
                     <!-- 播种季节 -->
                     <Border Grid.Column="0" 
                             Background="#FAFBFC" 
@@ -176,7 +164,7 @@
                 </Grid>
 
                 <!-- 生长信息网格 -->
-                <Grid Grid.Row="3" ColumnDefinitions="*,*" Margin="0,0,0,20">
+                <Grid ColumnDefinitions="*,*">
                     <!-- 生长区域 -->
                     <Border Grid.Column="0" 
                             Background="#FAFBFC" 
@@ -223,53 +211,29 @@
                 </Grid>
 
                 <!-- 详细描述 -->
-                <Border Grid.Row="4" 
-                        Background="{StaticResource WhiteGradient}" 
+                <Border Background="{StaticResource WhiteGradient}" 
                         CornerRadius="16" 
                         Padding="25"
-                        Margin="0,0,0,25"
                         BorderBrush="#E8F5E8"
                         BorderThickness="1">
                     <StackPanel>
                         <TextBlock Text="📖 植物描述" 
-                                   FontSize="13" 
+                                   FontSize="16" 
                                    Foreground="#78909C"
                                    FontWeight="Medium"
-                                   Margin="0,0,0,8"/>
-                        <TextBlock Text="{Binding CurrentPlant.Description}" 
-                                   FontSize="15" 
-                                   Foreground="#37474F"
-                                   FontWeight="SemiBold"
-                                   TextAlignment="Center"/>
+                                   Margin="0,0,0,12"/>
+                        <ScrollViewer MaxHeight="200" VerticalScrollBarVisibility="Auto">
+                            <TextBlock Text="{Binding CurrentPlant.Description}" 
+                                       FontSize="15" 
+                                       Foreground="#37474F"
+                                       FontWeight="SemiBold"
+                                       TextWrapping="Wrap"/>
+                        </ScrollViewer>
                     </StackPanel>
                 </Border>
 
-                <!-- 底部操作按钮 - 现在在ScrollViewer内部 -->
-                <Border Grid.Row="5" 
-                        Background="Transparent" 
-                        Padding="20,15,20,10"> <!-- 调整内边距 -->
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Button Content="退出" 
-                                Command="{Binding GoBackCommand}"
-                                Background="{StaticResource RedGradient}"
-                                Foreground="White"
-                                FontSize="16"
-                                FontWeight="SemiBold"
-                                Padding="30,12"
-                                CornerRadius="8"
-                                BorderThickness="0"
-                                Cursor="Hand"
-                                MinWidth="120">
-                            <Button.Styles>
-                                <Style Selector="Button:pointerover">
-                                    <Setter Property="Background" Value="#D32F2F"/>
-                                    <Setter Property="Foreground" Value="White"/>
-                                </Style>
-                            </Button.Styles>
-                        </Button>
-                    </StackPanel>
-                </Border>
-            </Grid>
+                
+            </StackPanel>
         </ScrollViewer>
     </Grid>
 </UserControl>
