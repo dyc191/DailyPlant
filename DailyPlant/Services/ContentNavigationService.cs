@@ -15,6 +15,8 @@ public class ContentNavigationService : IContentNavigationService {
                 .EncyclopediaViewModel,
             ContentNavigationConstant.PlantDetailView => ServiceLocator.Current
                 .PlantDetailViewModel,
+            ContentNavigationConstant.PlantView => ServiceLocator.Current
+                .PlantViewModel,
             _ => throw new Exception("未知的视图。")
         };
 

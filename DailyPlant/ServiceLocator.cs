@@ -51,6 +51,9 @@ public class ServiceLocator {
     public PlantDetailViewModel PlantDetailViewModel =>
         _serviceProvider.GetService<PlantDetailViewModel>();
     
+    public PlantViewModel PlantViewModel =>
+        _serviceProvider.GetService<PlantViewModel>();
+    
     
 
 
@@ -65,7 +68,7 @@ public class ServiceLocator {
         serviceCollection.AddSingleton<EncyclopediaViewModel>();
         serviceCollection.AddSingleton<TakePhotoViewModel>();
         serviceCollection.AddSingleton<PlantDetailViewModel>();
-        
+        serviceCollection.AddSingleton<PlantViewModel>();
         
         
 
