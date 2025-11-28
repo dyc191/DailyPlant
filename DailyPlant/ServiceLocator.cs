@@ -1,6 +1,7 @@
 using System;
 using Avalonia;
 using Avalonia.Controls;
+using DailyPlant.Library.Data;
 using DailyPlant.Library.Services;
 using DailyPlant.Library.ViewModels;
 using DailyPlant.Services;
@@ -95,4 +96,5 @@ public class ServiceLocator {
          
     }
 }
+
 
