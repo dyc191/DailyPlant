@@ -11,6 +11,11 @@ namespace DailyPlant.Library.Services
     {
         private readonly PlantDbContext _context;
 
+        public DailyService(PlantDbContext context)
+        {
+            _context = context;
+        }
+        
         public DailyService()
         {
             _context = new PlantDbContext();
