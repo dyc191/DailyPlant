@@ -3,15 +3,20 @@ using Avalonia.Media.Imaging;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DailyPlant.Library.Services;
+using DailyPlant.Library.Models;
 
 namespace DailyPlant.Library.ViewModels;
 
 public partial class PlantDetailViewModel : ViewModelBase
 {
+    private readonly IPlantRecognitionService _plantRecognitionService;
     private readonly IContentNavigationService _contentNavigationService;
 
-    public PlantDetailViewModel(IContentNavigationService contentNavigationService)
+    public PlantDetailViewModel(
+        IPlantRecognitionService plantRecognitionService,
+        IContentNavigationService contentNavigationService)
     {
+        _plantRecognitionService = plantRecognitionService;
         _contentNavigationService = contentNavigationService;
         Debug.WriteLine("PlantDetailViewModel 构造函数被调用");
     }
@@ -37,7 +42,6 @@ public partial class PlantDetailViewModel : ViewModelBase
     [ObservableProperty]
     private string _confidenceText = "可信度: 0%";
 
-    // 在 PlantDetailViewModel.cs 的 SetParameter 方法中修改
     public override void SetParameter(object parameter)
     {
         Debug.WriteLine($"SetParameter 被调用，参数类型: {parameter?.GetType().Name}");
@@ -53,10 +57,8 @@ public partial class PlantDetailViewModel : ViewModelBase
                 Score = plant.Score;
                 ConfidenceText = $"识别可信度: {plant.Score * 100:F1}%";
             
-                // 检查百科信息
                 if (plant.BaikeInfo != null)
                 {
-                    // 确保文本有适当的换行
                     Description = FormatTextWithLineBreaks(plant.BaikeInfo.Description ?? "暂无详细的百科描述信息。");
                     ImageUrl = plant.BaikeInfo.ImageUrl ?? string.Empty;
                     Debug.WriteLine($"设置描述，长度: {Description.Length}");
@@ -85,14 +87,11 @@ public partial class PlantDetailViewModel : ViewModelBase
         }
     }
     
-    
-    // 添加文本格式化方法
     private string FormatTextWithLineBreaks(string text)
     {
         if (string.IsNullOrEmpty(text))
             return "暂无描述信息";
     
-        // 在句号后添加换行，使文本更易读
         return text.Replace("。", "。\n");
     }
 
@@ -109,23 +108,12 @@ public partial class PlantDetailViewModel : ViewModelBase
 
         try
         {
-            using var httpClient = new HttpClient();
-            // 设置用户代理，避免被某些网站拒绝
-            httpClient.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36");
-            httpClient.Timeout = TimeSpan.FromSeconds(30);
-            
-            Debug.WriteLine($"正在下载图片: {ImageUrl}");
-            var imageBytes = await httpClient.GetByteArrayAsync((string?)ImageUrl);
-            Debug.WriteLine($"图片下载完成，大小: {imageBytes.Length} 字节");
-            
-            using var memoryStream = new MemoryStream(imageBytes);
-            PlantImage = new Bitmap(memoryStream);
-            Debug.WriteLine("Bitmap 创建成功");
+            PlantImage = await _plantRecognitionService.LoadPlantImageAsync(ImageUrl);
+            Debug.WriteLine("植物图片加载完成");
         }
         catch (Exception ex)
         {
             Debug.WriteLine($"加载植物图片失败: {ex.Message}");
-            // 设置一个默认图片或保持为 null
             PlantImage = null;
         }
         finally
@@ -145,6 +133,8 @@ public partial class PlantDetailViewModel : ViewModelBase
     [RelayCommand]
     private async Task ShareInfo()
     {
+        // 分享功能实现
         await Task.Delay(100);
+        Debug.WriteLine("分享功能被调用");
     }
 }
