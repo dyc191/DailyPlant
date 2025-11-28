@@ -8,13 +8,23 @@ namespace DailyPlant.Library.Data
     {
         public DbSet<Plant> Plants { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public PlantDbContext(DbContextOptions<PlantDbContext> options) : base(options)
         {
-            var dbPath =  DatabaseConfig.GetDatabasePath();
-            
-            optionsBuilder.UseSqlite($"Data Source={dbPath}");
         }
 
+        public PlantDbContext()
+        {
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                var dbPath = DatabaseConfig.GetDatabasePath();
+                optionsBuilder.UseSqlite($"Data Source={dbPath}");
+            }
+        }
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Plant>(entity =>
