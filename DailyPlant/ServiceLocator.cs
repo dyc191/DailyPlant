@@ -79,6 +79,9 @@ public class ServiceLocator {
         serviceCollection
             .AddSingleton<IContentNavigationService, ContentNavigationService>();
         
+        serviceCollection.AddSingleton<IPlantApiService, PlantApiService>();         
+        serviceCollection.AddSingleton<IPlantRecognitionService, PlantRecognitionService>(); 
+        
         serviceCollection.AddSingleton<DailyService>();
         
         _serviceProvider = serviceCollection.BuildServiceProvider();
