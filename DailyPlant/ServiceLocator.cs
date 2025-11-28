@@ -81,6 +81,13 @@ public class ServiceLocator {
         
         serviceCollection.AddSingleton<IPlantApiService, PlantApiService>();         
         serviceCollection.AddSingleton<IPlantRecognitionService, PlantRecognitionService>(); 
+
+        serviceCollection
+            .AddSingleton<IPlantService, PlantService>();
+        serviceCollection
+            .AddSingleton<ICategoryService, CategoryService>();
+        
+        serviceCollection.AddSingleton<PlantDbContext>();
         
         serviceCollection.AddSingleton<DailyService>();
         
@@ -88,3 +95,4 @@ public class ServiceLocator {
          
     }
 }
+
