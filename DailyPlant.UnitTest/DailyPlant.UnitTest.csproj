@@ -25,4 +25,9 @@
       <Folder Include="ViewModels\" />
     </ItemGroup>
 
+<ItemGroup>
+        <ProjectReference Include="..\DailyPlant.Library\DailyPlant.Library.csproj" />
+    </ItemGroup>
+
 </Project>
+
