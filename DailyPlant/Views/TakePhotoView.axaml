@@ -14,58 +14,301 @@
     
     <UserControl.Resources>
         <converters:NegativeConverter x:Key="NegativeConverter"/>
+        
+        <Color x:Key="PrimaryGreen">#4CAF50</Color>
+        <Color x:Key="LightGreen">#E8F5E8</Color>
+        <Color x:Key="MediumGreen">#81C784</Color>
+        <Color x:Key="DarkGreen">#388E3C</Color>
+        <Color x:Key="TextDark">#1B5E20</Color>
+        <Color x:Key="TextLight">#FFFFFF</Color>
+        <Color x:Key="HoverGreen">#66BB6A</Color>
+        <Color x:Key="BackgroundGreen">#FAFDFA</Color>
+        
+        <SolidColorBrush x:Key="PrimaryGreenBrush" Color="{StaticResource PrimaryGreen}"/>
+        <SolidColorBrush x:Key="LightGreenBrush" Color="{StaticResource LightGreen}"/>
+        <SolidColorBrush x:Key="MediumGreenBrush" Color="{StaticResource MediumGreen}"/>
+        <SolidColorBrush x:Key="DarkGreenBrush" Color="{StaticResource DarkGreen}"/>
+        <SolidColorBrush x:Key="TextDarkBrush" Color="{StaticResource TextDark}"/>
+        <SolidColorBrush x:Key="TextLightBrush" Color="{StaticResource TextLight}"/>
+        <SolidColorBrush x:Key="HoverGreenBrush" Color="{StaticResource HoverGreen}"/>
+        <SolidColorBrush x:Key="BackgroundGreenBrush" Color="{StaticResource BackgroundGreen}"/>
     </UserControl.Resources>
     
-    <Grid>
-        <!-- 使用浅蓝色背景覆盖整个界面 -->
-        <Grid.Background>
-            <SolidColorBrush Color="#E3F2FD"/>
-        </Grid.Background>
+    <Grid Background="{StaticResource BackgroundGreenBrush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="400"/> <!-- 左侧功能说明区域 -->
+            <ColumnDefinition Width="*"/>   <!-- 右侧主操作区域 -->
+        </Grid.ColumnDefinitions>
         
-        <Border Background="#FFFFFF" Opacity="0.9" CornerRadius="15" Margin="30">
-            <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="30" Margin="20">
-                    <!-- 标题区域 -->
-                    <StackPanel HorizontalAlignment="Center" Spacing="10">
-                        <TextBlock Text="植物识别" 
-                                   FontSize="32" 
-                                   FontWeight="Bold"
-                                   Foreground="#1976D2"
-                                   HorizontalAlignment="Center"/>
-                        <TextBlock Text="拍摄或上传植物图片进行智能识别" 
-                                   FontSize="16"
-                                   Foreground="#666666"
+        <!-- 装饰性背景元素 -->
+        <Canvas Grid.ColumnSpan="2">
+            <!-- 左上角装饰 -->
+            <Ellipse Width="120" Height="120" Canvas.Left="-40" Canvas.Top="-40" 
+                     Fill="{StaticResource MediumGreenBrush}" Opacity="0.1"/>
+            <!-- 右下角装饰 -->
+            <Ellipse Width="180" Height="180" Canvas.Right="-60" Canvas.Bottom="-60" 
+                     Fill="{StaticResource PrimaryGreenBrush}" Opacity="0.08"/>
+        </Canvas>
+        
+        <!-- 左侧功能说明区域 -->
+        <Border Grid.Column="0" 
+                Background="{StaticResource LightGreenBrush}" 
+                CornerRadius="12" 
+                Margin="20,20,10,20"
+                BorderThickness="1" 
+                BorderBrush="{StaticResource MediumGreenBrush}">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="15">
+                <StackPanel Spacing="20">
+                    <!-- 标题 -->
+                    <StackPanel Spacing="10" HorizontalAlignment="Center">
+                        <Border Background="{StaticResource PrimaryGreenBrush}" 
+                                CornerRadius="20" 
+                                Padding="10,6"
+                                HorizontalAlignment="Center">
+                            <TextBlock Text="✨ 功能特色" 
+                                       FontSize="16" 
+                                       FontWeight="Bold"
+                                       Foreground="{StaticResource TextLightBrush}"
+                                       HorizontalAlignment="Center"/>
+                        </Border>
+                        <TextBlock Text="AI植物识别，探索自然奥秘" 
+                                   FontSize="14"
+                                   Foreground="{StaticResource TextDarkBrush}"
                                    HorizontalAlignment="Center"
                                    TextAlignment="Center"/>
                     </StackPanel>
                     
+                    <!-- 功能优点列表 -->
+                    <StackPanel Spacing="15">
+                        <Border Background="{StaticResource TextLightBrush}" 
+                                CornerRadius="10" 
+                                Padding="15"
+                                BorderThickness="1"
+                                BorderBrush="{StaticResource MediumGreenBrush}">
+                            <StackPanel Orientation="Horizontal" Spacing="12">
+                                <Border Background="{StaticResource PrimaryGreenBrush}" 
+                                        CornerRadius="8" 
+                                        Width="30" 
+                                        Height="30"
+                                        VerticalAlignment="Top">
+                                    <TextBlock Text="🤖" 
+                                               FontSize="14"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"/>
+                                </Border>
+                                <StackPanel Spacing="4">
+                                    <TextBlock Text="AI智能识别" 
+                                               FontSize="14"
+                                               FontWeight="SemiBold"
+                                               Foreground="{StaticResource TextDarkBrush}"/>
+                                    <TextBlock Text="基于深度学习算法，精准识别植物种类" 
+                                               FontSize="12"
+                                               Foreground="{StaticResource DarkGreenBrush}"
+                                               TextWrapping="Wrap"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                        
+                        <Border Background="{StaticResource TextLightBrush}" 
+                                CornerRadius="10" 
+                                Padding="15"
+                                BorderThickness="1"
+                                BorderBrush="{StaticResource MediumGreenBrush}">
+                            <StackPanel Orientation="Horizontal" Spacing="12">
+                                <Border Background="{StaticResource PrimaryGreenBrush}" 
+                                        CornerRadius="8" 
+                                        Width="30" 
+                                        Height="30"
+                                        VerticalAlignment="Top">
+                                    <TextBlock Text="⚡" 
+                                               FontSize="14"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"/>
+                                </Border>
+                                <StackPanel Spacing="4">
+                                    <TextBlock Text="快速准确" 
+                                               FontSize="14"
+                                               FontWeight="SemiBold"
+                                               Foreground="{StaticResource TextDarkBrush}"/>
+                                    <TextBlock Text="秒级识别响应，准确率高达95%以上" 
+                                               FontSize="12"
+                                               Foreground="{StaticResource DarkGreenBrush}"
+                                               TextWrapping="Wrap"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                        
+                        <Border Background="{StaticResource TextLightBrush}" 
+                                CornerRadius="10" 
+                                Padding="15"
+                                BorderThickness="1"
+                                BorderBrush="{StaticResource MediumGreenBrush}">
+                            <StackPanel Orientation="Horizontal" Spacing="12">
+                                <Border Background="{StaticResource PrimaryGreenBrush}" 
+                                        CornerRadius="8" 
+                                        Width="30" 
+                                        Height="30"
+                                        VerticalAlignment="Top">
+                                    <TextBlock Text="🌍" 
+                                               FontSize="14"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"/>
+                                </Border>
+                                <StackPanel Spacing="4">
+                                    <TextBlock Text="海量植物库" 
+                                               FontSize="14"
+                                               FontWeight="SemiBold"
+                                               Foreground="{StaticResource TextDarkBrush}"/>
+                                    <TextBlock Text="涵盖全球上万种植物，持续更新数据库" 
+                                               FontSize="12"
+                                               Foreground="{StaticResource DarkGreenBrush}"
+                                               TextWrapping="Wrap"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                        
+                        <Border Background="{StaticResource TextLightBrush}" 
+                                CornerRadius="10" 
+                                Padding="15"
+                                BorderThickness="1"
+                                BorderBrush="{StaticResource MediumGreenBrush}">
+                            <StackPanel Orientation="Horizontal" Spacing="12">
+                                <Border Background="{StaticResource PrimaryGreenBrush}" 
+                                        CornerRadius="8" 
+                                        Width="30" 
+                                        Height="30"
+                                        VerticalAlignment="Top">
+                                    <TextBlock Text="📚" 
+                                               FontSize="14"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"/>
+                                </Border>
+                                <StackPanel Spacing="4">
+                                    <TextBlock Text="详细百科信息" 
+                                               FontSize="14"
+                                               FontWeight="SemiBold"
+                                               Foreground="{StaticResource TextDarkBrush}"/>
+                                    <TextBlock Text="提供完整的植物信息、生长习性和养护知识" 
+                                               FontSize="12"
+                                               Foreground="{StaticResource DarkGreenBrush}"
+                                               TextWrapping="Wrap"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                        
+                        <Border Background="{StaticResource TextLightBrush}" 
+                                CornerRadius="10" 
+                                Padding="15"
+                                BorderThickness="1"
+                                BorderBrush="{StaticResource MediumGreenBrush}">
+                            <StackPanel Orientation="Horizontal" Spacing="12">
+                                <Border Background="{StaticResource PrimaryGreenBrush}" 
+                                        CornerRadius="8" 
+                                        Width="30" 
+                                        Height="30"
+                                        VerticalAlignment="Top">
+                                    <TextBlock Text="📱" 
+                                               FontSize="14"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"/>
+                                </Border>
+                                <StackPanel Spacing="4">
+                                    <TextBlock Text="简单易用" 
+                                               FontSize="14"
+                                               FontWeight="SemiBold"
+                                               Foreground="{StaticResource TextDarkBrush}"/>
+                                    <TextBlock Text="拍照或上传图片，一键识别，操作便捷" 
+                                               FontSize="12"
+                                               Foreground="{StaticResource DarkGreenBrush}"
+                                               TextWrapping="Wrap"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                    
+                    <Border Background="{StaticResource PrimaryGreenBrush}" 
+                            CornerRadius="10" 
+                            Padding="15"
+                            Opacity="0.9">
+                        <StackPanel Spacing="8">
+                            <TextBlock Text="💡 使用提示" 
+                                       FontSize="14"
+                                       FontWeight="SemiBold"
+                                       Foreground="{StaticResource TextLightBrush}"
+                                       HorizontalAlignment="Center"/>
+                            <TextBlock Text="• 选择清晰、光线良好的图片&#x0a;• 拍摄植物特征明显的部位&#x0a;• 多角度拍摄提高识别准确率" 
+                                       FontSize="12"
+                                       Foreground="{StaticResource TextLightBrush}"
+                                       TextWrapping="Wrap"/>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+        
+        <!-- 右侧主操作区域 -->
+        <Border Grid.Column="1" 
+                Background="{StaticResource TextLightBrush}" 
+                CornerRadius="12" 
+                Margin="10,20,20,20"
+                BorderThickness="1" 
+                BorderBrush="{StaticResource MediumGreenBrush}">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="10">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="30" Margin="20">
+                    
+                    <!-- 标题区域 -->
+                    <StackPanel HorizontalAlignment="Center" Spacing="10">
+                        <Border Background="{StaticResource LightGreenBrush}" 
+                                CornerRadius="20" 
+                                Padding="15,10"
+                                HorizontalAlignment="Center">
+                            <StackPanel Orientation="Horizontal" Spacing="10" HorizontalAlignment="Center">
+                                <TextBlock Text="🌿" FontSize="24" VerticalAlignment="Center"/>
+                                <TextBlock Text="植物识别" 
+                                           FontSize="24" 
+                                           FontWeight="Bold"
+                                           Foreground="{StaticResource TextDarkBrush}"
+                                           VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Border>
+                        <TextBlock Text="拍摄或上传植物图片进行智能识别" 
+                                   FontSize="14"
+                                   Foreground="{StaticResource TextDarkBrush}"
+                                   HorizontalAlignment="Center"
+                                   TextAlignment="Center"
+                                   MaxWidth="400"
+                                   TextWrapping="Wrap"/>
+                    </StackPanel>
+                    
                     <!-- 操作按钮区域 -->
-                    <StackPanel Orientation="Horizontal" Spacing="80" HorizontalAlignment="Center">
+                    <StackPanel Orientation="Horizontal" Spacing="60" HorizontalAlignment="Center">
                         <!-- 拍照按钮 -->
                         <StackPanel Spacing="15" HorizontalAlignment="Center">
                             <Button Name="CaptureButton" 
                                     Content="📷" 
-                                    Width="140" 
-                                    Height="140"
-                                    FontSize="90"
+                                    Width="120" 
+                                    Height="120"
+                                    FontSize="60"
                                     Background="Transparent"
-                                    Foreground="#1976D2"
+                                    Foreground="{StaticResource PrimaryGreenBrush}"
                                     CornerRadius="15"
                                     BorderThickness="2"
-                                    BorderBrush="#1976D2"
+                                    BorderBrush="{StaticResource PrimaryGreenBrush}"
                                     Padding="0"
                                     Command="{Binding TakePhotoCommand}"
-                                    IsEnabled="{Binding IsTakingPhoto, Converter={StaticResource NegativeConverter}}"/>
+                                    IsEnabled="{Binding IsTakingPhoto, Converter={StaticResource NegativeConverter}}"
+                                    Cursor="Hand">
+                            </Button>
                             <StackPanel Spacing="5" HorizontalAlignment="Center">
                                 <TextBlock Text="拍照识别" 
-                                           FontSize="18"
+                                           FontSize="16"
                                            HorizontalAlignment="Center"
-                                           Foreground="#333333"
+                                           Foreground="{StaticResource TextDarkBrush}"
                                            FontWeight="SemiBold"/>
                                 <TextBlock Text="{Binding PhotoStatus}" 
                                            FontSize="12"
                                            HorizontalAlignment="Center"
-                                           Foreground="#666666"
+                                           Foreground="{StaticResource DarkGreenBrush}"
                                            TextWrapping="Wrap"
                                            MaxWidth="140"
                                            TextAlignment="Center"/>
@@ -76,112 +319,127 @@
                         <StackPanel Spacing="15" HorizontalAlignment="Center">
                             <Button Name="UploadButton" 
                                     Content="📁" 
-                                    Width="140" 
-                                    Height="140"
-                                    FontSize="90"
+                                    Width="120" 
+                                    Height="120"
+                                    FontSize="60"
                                     Background="Transparent"
-                                    Foreground="#1976D2"
+                                    Foreground="{StaticResource PrimaryGreenBrush}"
                                     CornerRadius="15"
                                     BorderThickness="2"
-                                    BorderBrush="#1976D2"
+                                    BorderBrush="{StaticResource PrimaryGreenBrush}"
                                     Padding="0"
                                     Command="{Binding SelectImageCommand}"
-                                    IsEnabled="{Binding IsTakingPhoto, Converter={StaticResource NegativeConverter}}"/>
+                                    IsEnabled="{Binding IsTakingPhoto, Converter={StaticResource NegativeConverter}}"
+                                    Cursor="Hand">
+                            </Button>
                             <TextBlock Text="上传图片" 
-                                       FontSize="18"
+                                       FontSize="16"
                                        HorizontalAlignment="Center"
-                                       Foreground="#333333"
+                                       Foreground="{StaticResource TextDarkBrush}"
                                        FontWeight="SemiBold"/>
                         </StackPanel>
                     </StackPanel>
 
-                    <!-- 状态指示区域 - 放在操作按钮下方 -->
-                    <StackPanel Spacing="15" HorizontalAlignment="Center" Width="500">
+                    <!-- 状态指示区域 -->
+                    <StackPanel Spacing="12" HorizontalAlignment="Center" Width="500">
                         
                         <!-- 拍照过程指示器 -->
-                        <Border Background="#FFF3E0" 
-                                CornerRadius="10" 
+                        <Border Background="#FFF8E1" 
+                                CornerRadius="8" 
                                 Padding="15"
+                                BorderThickness="1"
+                                BorderBrush="#FFD54F"
                                 IsVisible="{Binding IsTakingPhoto}">
                             <StackPanel Orientation="Horizontal" Spacing="10" HorizontalAlignment="Center">
-                                <TextBlock Text="⏳" FontSize="20" VerticalAlignment="Center"/>
+                                <TextBlock Text="⏳" FontSize="16" VerticalAlignment="Center"/>
                                 <TextBlock Text="{Binding PhotoStatus}" 
                                            VerticalAlignment="Center" 
                                            FontSize="14"
-                                           Foreground="#E65100"/>
+                                           Foreground="#FF8F00"/>
                             </StackPanel>
                         </Border>
 
                         <!-- 识别加载指示器 -->
-                        <Border Background="#E8F5E9" 
-                                CornerRadius="10" 
+                        <Border Background="{StaticResource LightGreenBrush}" 
+                                CornerRadius="8" 
                                 Padding="15"
+                                BorderThickness="1"
+                                BorderBrush="{StaticResource MediumGreenBrush}"
                                 IsVisible="{Binding IsProcessing}">
                             <StackPanel Orientation="Horizontal" Spacing="10" HorizontalAlignment="Center">
-                                <TextBlock Text="🔍" FontSize="20" VerticalAlignment="Center"/>
+                                <TextBlock Text="🔍" FontSize="16" VerticalAlignment="Center"/>
                                 <TextBlock Text="正在识别植物，请稍候..." 
                                            VerticalAlignment="Center" 
                                            FontSize="14"
-                                           Foreground="#2E7D32"/>
+                                           Foreground="{StaticResource DarkGreenBrush}"/>
                             </StackPanel>
                         </Border>
 
                         <!-- 图片准备就绪指示 -->
                         <Border Background="#E3F2FD" 
-                                CornerRadius="10" 
+                                CornerRadius="8" 
                                 Padding="15"
+                                BorderThickness="1"
+                                BorderBrush="#64B5F6"
                                 IsVisible="{Binding SelectedImagePath, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
                             <StackPanel Orientation="Horizontal" Spacing="10" HorizontalAlignment="Center">
-                                <TextBlock Text="✅" FontSize="20" VerticalAlignment="Center"/>
+                                <TextBlock Text="✅" FontSize="16" VerticalAlignment="Center"/>
                                 <TextBlock Text="图片已准备就绪" 
                                            VerticalAlignment="Center" 
                                            FontSize="14"
-                                           Foreground="#1976D2"/>
+                                           Foreground="#1565C0"/>
                             </StackPanel>
                         </Border>
                     </StackPanel>
 
-                    <!-- 识别按钮 - 放在状态指示下方 -->
+                    <!-- 识别按钮区域 -->
                     <StackPanel Spacing="15" HorizontalAlignment="Center" 
                                IsVisible="{Binding SelectedImagePath, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
                         
                         <!-- 识别按钮 -->
-                        <Button Content="开始识别植物" 
+                        <Button Content="🌱 开始识别植物" 
                                 Command="{Binding RecognizePlantCommand}"
                                 IsEnabled="{Binding IsProcessing, Converter={x:Static BoolConverters.Not}}"
-                                Width="240"
-                                Height="50"
-                                FontSize="18"
-                                Background="#1976D2"
-                                Foreground="White"
-                                CornerRadius="10"
-                                FontWeight="SemiBold"/>
+                                Width="200"
+                                Height="45"
+                                FontSize="16"
+                                Background="{StaticResource PrimaryGreenBrush}"
+                                Foreground="{StaticResource TextLightBrush}"
+                                CornerRadius="8"
+                                FontWeight="SemiBold"
+                                BorderThickness="0"
+                                Cursor="Hand">
+                        </Button>
                         
                         <!-- 简单提示 -->
                         <TextBlock Text="点击按钮开始识别您选择的植物图片" 
                                    FontSize="12"
-                                   Foreground="#666666"
+                                   Foreground="{StaticResource DarkGreenBrush}"
                                    HorizontalAlignment="Center"/>
                     </StackPanel>
 
-                    <!-- 初始状态提示 - 放在最底部 -->
-                    <Border Background="#FFF9C4" 
+                    <!-- 初始状态提示 -->
+                    <Border Background="{StaticResource LightGreenBrush}" 
                             CornerRadius="10" 
                             Padding="20"
                             HorizontalAlignment="Center"
+                            BorderThickness="1"
+                            BorderBrush="{StaticResource MediumGreenBrush}"
                             IsVisible="{Binding SelectedImagePath, Converter={x:Static StringConverters.IsNullOrEmpty}}">
                         <StackPanel Spacing="10" HorizontalAlignment="Center">
-                            <TextBlock Text="🌿" 
-                                       FontSize="24" 
-                                       HorizontalAlignment="Center"/>
+                            <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Center">
+                                <TextBlock Text="🌿" FontSize="20" VerticalAlignment="Center"/>
+                                <TextBlock Text="🌸" FontSize="20" VerticalAlignment="Center"/>
+                                <TextBlock Text="🍃" FontSize="20" VerticalAlignment="Center"/>
+                            </StackPanel>
                             <TextBlock Text="欢迎使用植物识别功能" 
                                        FontSize="16" 
                                        FontWeight="SemiBold"
-                                       Foreground="#333333"
+                                       Foreground="{StaticResource TextDarkBrush}"
                                        HorizontalAlignment="Center"/>
                             <TextBlock Text="请选择上方任意方式获取植物图片" 
                                        FontSize="14"
-                                       Foreground="#666666"
+                                       Foreground="{StaticResource DarkGreenBrush}"
                                        HorizontalAlignment="Center"
                                        TextWrapping="Wrap"
                                        TextAlignment="Center"/>
