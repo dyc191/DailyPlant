@@ -21,20 +21,18 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Services\" />
-      <Folder Include="ViewModels\" />
+        <Folder Include="Services\" />
     </ItemGroup>
 
- <ItemGroup>
+    <ItemGroup>
         <None Update="xunit.runner.json">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
     </ItemGroup>
 
-<ItemGroup>
+    <ItemGroup>
         <ProjectReference Include="..\DailyPlant.Library\DailyPlant.Library.csproj" />
     </ItemGroup>
 
 </Project>
-
 
