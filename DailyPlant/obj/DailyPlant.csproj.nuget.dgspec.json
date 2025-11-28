@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Project\\JetBrain\\DailyPlant\\DailyPlant\\DailyPlant.csproj": {}
+    "C:\\Users\\lenovo\\Desktop\\DailyPlant-fei\\DailyPlant\\DailyPlant.csproj": {}
   },
   "projects": {
-    "D:\\Project\\JetBrain\\DailyPlant\\DailyPlant.Library\\DailyPlant.Library.csproj": {
+    "C:\\Users\\lenovo\\Desktop\\DailyPlant-fei\\DailyPlant.Library\\DailyPlant.Library.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Project\\JetBrain\\DailyPlant\\DailyPlant.Library\\DailyPlant.Library.csproj",
+        "projectUniqueName": "C:\\Users\\lenovo\\Desktop\\DailyPlant-fei\\DailyPlant.Library\\DailyPlant.Library.csproj",
         "projectName": "DailyPlant.Library",
-        "projectPath": "D:\\Project\\JetBrain\\DailyPlant\\DailyPlant.Library\\DailyPlant.Library.csproj",
-        "packagesPath": "C:\\Users\\19171\\.nuget\\packages\\",
-        "outputPath": "D:\\Project\\JetBrain\\DailyPlant\\DailyPlant.Library\\obj\\",
+        "projectPath": "C:\\Users\\lenovo\\Desktop\\DailyPlant-fei\\DailyPlant.Library\\DailyPlant.Library.csproj",
+        "packagesPath": "C:\\Users\\lenovo\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\lenovo\\Desktop\\DailyPlant-fei\\DailyPlant.Library\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\19171\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -44,7 +44,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.100"
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net9.0": {
@@ -57,6 +57,20 @@
             "CommunityToolkit.Mvvm": {
               "target": "Package",
               "version": "[8.4.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.11, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[9.0.11, )"
+            },
+            "ReactiveUI.Avalonia": {
+              "target": "Package",
+              "version": "[11.3.8, )"
             },
             "sqlite-net-pcl": {
               "target": "Package",
@@ -79,24 +93,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Users\\lenovo\\.dotnet\\sdk\\9.0.308/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Project\\JetBrain\\DailyPlant\\DailyPlant\\DailyPlant.csproj": {
+    "C:\\Users\\lenovo\\Desktop\\DailyPlant-fei\\DailyPlant\\DailyPlant.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Project\\JetBrain\\DailyPlant\\DailyPlant\\DailyPlant.csproj",
+        "projectUniqueName": "C:\\Users\\lenovo\\Desktop\\DailyPlant-fei\\DailyPlant\\DailyPlant.csproj",
         "projectName": "DailyPlant",
-        "projectPath": "D:\\Project\\JetBrain\\DailyPlant\\DailyPlant\\DailyPlant.csproj",
-        "packagesPath": "C:\\Users\\19171\\.nuget\\packages\\",
-        "outputPath": "D:\\Project\\JetBrain\\DailyPlant\\DailyPlant\\obj\\",
+        "projectPath": "C:\\Users\\lenovo\\Desktop\\DailyPlant-fei\\DailyPlant\\DailyPlant.csproj",
+        "packagesPath": "C:\\Users\\lenovo\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\lenovo\\Desktop\\DailyPlant-fei\\DailyPlant\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\19171\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -111,8 +125,8 @@
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "D:\\Project\\JetBrain\\DailyPlant\\DailyPlant.Library\\DailyPlant.Library.csproj": {
-                "projectPath": "D:\\Project\\JetBrain\\DailyPlant\\DailyPlant.Library\\DailyPlant.Library.csproj"
+              "C:\\Users\\lenovo\\Desktop\\DailyPlant-fei\\DailyPlant.Library\\DailyPlant.Library.csproj": {
+                "projectPath": "C:\\Users\\lenovo\\Desktop\\DailyPlant-fei\\DailyPlant.Library\\DailyPlant.Library.csproj"
               }
             }
           }
@@ -127,7 +141,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.100"
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net9.0": {
@@ -135,23 +149,23 @@
           "dependencies": {
             "Avalonia": {
               "target": "Package",
-              "version": "[11.3.6, )"
+              "version": "[11.3.8, )"
             },
             "Avalonia.Desktop": {
               "target": "Package",
-              "version": "[11.3.6, )"
+              "version": "[11.3.8, )"
             },
             "Avalonia.Diagnostics": {
               "target": "Package",
-              "version": "[11.3.6, )"
+              "version": "[11.3.8, )"
             },
             "Avalonia.Fonts.Inter": {
               "target": "Package",
-              "version": "[11.3.6, )"
+              "version": "[11.3.8, )"
             },
             "Avalonia.Themes.Fluent": {
               "target": "Package",
-              "version": "[11.3.6, )"
+              "version": "[11.3.8, )"
             },
             "AvaloniaInfiniteScrolling.Control": {
               "target": "Package",
@@ -163,7 +177,7 @@
             },
             "Microsoft.Extensions.DependencyInjection": {
               "target": "Package",
-              "version": "[9.0.9, )"
+              "version": "[9.0.11, )"
             },
             "Projektanker.Icons.Avalonia.FontAwesome": {
               "target": "Package",
@@ -194,7 +208,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Users\\lenovo\\.dotnet\\sdk\\9.0.308/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

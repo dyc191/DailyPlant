@@ -1,0 +1,194 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:DailyPlant.Library.ViewModels"
+             xmlns:converters="using:DailyPlant.Converters"
+             xmlns:viewModels="clr-namespace:DailyPlant.Library.ViewModels;assembly=DailyPlant.Library"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="DailyPlant.Views.TakePhotoView">
+    
+    <Design.DataContext>
+        <viewModels:TakePhotoViewModel />
+    </Design.DataContext>
+    
+    <UserControl.Resources>
+        <converters:NegativeConverter x:Key="NegativeConverter"/>
+    </UserControl.Resources>
+    
+    <Grid>
+        <!-- 使用浅蓝色背景覆盖整个界面 -->
+        <Grid.Background>
+            <SolidColorBrush Color="#E3F2FD"/>
+        </Grid.Background>
+        
+        <Border Background="#FFFFFF" Opacity="0.9" CornerRadius="15" Margin="30">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="30" Margin="20">
+                    <!-- 标题区域 -->
+                    <StackPanel HorizontalAlignment="Center" Spacing="10">
+                        <TextBlock Text="植物识别" 
+                                   FontSize="32" 
+                                   FontWeight="Bold"
+                                   Foreground="#1976D2"
+                                   HorizontalAlignment="Center"/>
+                        <TextBlock Text="拍摄或上传植物图片进行智能识别" 
+                                   FontSize="16"
+                                   Foreground="#666666"
+                                   HorizontalAlignment="Center"
+                                   TextAlignment="Center"/>
+                    </StackPanel>
+                    
+                    <!-- 操作按钮区域 -->
+                    <StackPanel Orientation="Horizontal" Spacing="80" HorizontalAlignment="Center">
+                        <!-- 拍照按钮 -->
+                        <StackPanel Spacing="15" HorizontalAlignment="Center">
+                            <Button Name="CaptureButton" 
+                                    Content="📷" 
+                                    Width="140" 
+                                    Height="140"
+                                    FontSize="90"
+                                    Background="Transparent"
+                                    Foreground="#1976D2"
+                                    CornerRadius="15"
+                                    BorderThickness="2"
+                                    BorderBrush="#1976D2"
+                                    Padding="0"
+                                    Command="{Binding TakePhotoCommand}"
+                                    IsEnabled="{Binding IsTakingPhoto, Converter={StaticResource NegativeConverter}}"/>
+                            <StackPanel Spacing="5" HorizontalAlignment="Center">
+                                <TextBlock Text="拍照识别" 
+                                           FontSize="18"
+                                           HorizontalAlignment="Center"
+                                           Foreground="#333333"
+                                           FontWeight="SemiBold"/>
+                                <TextBlock Text="{Binding PhotoStatus}" 
+                                           FontSize="12"
+                                           HorizontalAlignment="Center"
+                                           Foreground="#666666"
+                                           TextWrapping="Wrap"
+                                           MaxWidth="140"
+                                           TextAlignment="Center"/>
+                            </StackPanel>
+                        </StackPanel>
+                        
+                        <!-- 上传图片按钮 -->
+                        <StackPanel Spacing="15" HorizontalAlignment="Center">
+                            <Button Name="UploadButton" 
+                                    Content="📁" 
+                                    Width="140" 
+                                    Height="140"
+                                    FontSize="90"
+                                    Background="Transparent"
+                                    Foreground="#1976D2"
+                                    CornerRadius="15"
+                                    BorderThickness="2"
+                                    BorderBrush="#1976D2"
+                                    Padding="0"
+                                    Command="{Binding SelectImageCommand}"
+                                    IsEnabled="{Binding IsTakingPhoto, Converter={StaticResource NegativeConverter}}"/>
+                            <TextBlock Text="上传图片" 
+                                       FontSize="18"
+                                       HorizontalAlignment="Center"
+                                       Foreground="#333333"
+                                       FontWeight="SemiBold"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!-- 状态指示区域 - 放在操作按钮下方 -->
+                    <StackPanel Spacing="15" HorizontalAlignment="Center" Width="500">
+                        
+                        <!-- 拍照过程指示器 -->
+                        <Border Background="#FFF3E0" 
+                                CornerRadius="10" 
+                                Padding="15"
+                                IsVisible="{Binding IsTakingPhoto}">
+                            <StackPanel Orientation="Horizontal" Spacing="10" HorizontalAlignment="Center">
+                                <TextBlock Text="⏳" FontSize="20" VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding PhotoStatus}" 
+                                           VerticalAlignment="Center" 
+                                           FontSize="14"
+                                           Foreground="#E65100"/>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- 识别加载指示器 -->
+                        <Border Background="#E8F5E9" 
+                                CornerRadius="10" 
+                                Padding="15"
+                                IsVisible="{Binding IsProcessing}">
+                            <StackPanel Orientation="Horizontal" Spacing="10" HorizontalAlignment="Center">
+                                <TextBlock Text="🔍" FontSize="20" VerticalAlignment="Center"/>
+                                <TextBlock Text="正在识别植物，请稍候..." 
+                                           VerticalAlignment="Center" 
+                                           FontSize="14"
+                                           Foreground="#2E7D32"/>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- 图片准备就绪指示 -->
+                        <Border Background="#E3F2FD" 
+                                CornerRadius="10" 
+                                Padding="15"
+                                IsVisible="{Binding SelectedImagePath, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
+                            <StackPanel Orientation="Horizontal" Spacing="10" HorizontalAlignment="Center">
+                                <TextBlock Text="✅" FontSize="20" VerticalAlignment="Center"/>
+                                <TextBlock Text="图片已准备就绪" 
+                                           VerticalAlignment="Center" 
+                                           FontSize="14"
+                                           Foreground="#1976D2"/>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+
+                    <!-- 识别按钮 - 放在状态指示下方 -->
+                    <StackPanel Spacing="15" HorizontalAlignment="Center" 
+                               IsVisible="{Binding SelectedImagePath, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
+                        
+                        <!-- 识别按钮 -->
+                        <Button Content="开始识别植物" 
+                                Command="{Binding RecognizePlantCommand}"
+                                IsEnabled="{Binding IsProcessing, Converter={x:Static BoolConverters.Not}}"
+                                Width="240"
+                                Height="50"
+                                FontSize="18"
+                                Background="#1976D2"
+                                Foreground="White"
+                                CornerRadius="10"
+                                FontWeight="SemiBold"/>
+                        
+                        <!-- 简单提示 -->
+                        <TextBlock Text="点击按钮开始识别您选择的植物图片" 
+                                   FontSize="12"
+                                   Foreground="#666666"
+                                   HorizontalAlignment="Center"/>
+                    </StackPanel>
+
+                    <!-- 初始状态提示 - 放在最底部 -->
+                    <Border Background="#FFF9C4" 
+                            CornerRadius="10" 
+                            Padding="20"
+                            HorizontalAlignment="Center"
+                            IsVisible="{Binding SelectedImagePath, Converter={x:Static StringConverters.IsNullOrEmpty}}">
+                        <StackPanel Spacing="10" HorizontalAlignment="Center">
+                            <TextBlock Text="🌿" 
+                                       FontSize="24" 
+                                       HorizontalAlignment="Center"/>
+                            <TextBlock Text="欢迎使用植物识别功能" 
+                                       FontSize="16" 
+                                       FontWeight="SemiBold"
+                                       Foreground="#333333"
+                                       HorizontalAlignment="Center"/>
+                            <TextBlock Text="请选择上方任意方式获取植物图片" 
+                                       FontSize="14"
+                                       Foreground="#666666"
+                                       HorizontalAlignment="Center"
+                                       TextWrapping="Wrap"
+                                       TextAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+    </Grid>
+</UserControl>

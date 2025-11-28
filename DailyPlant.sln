@@ -1,8 +1,10 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DailyPlant", "DailyPlant\DailyPlant.csproj", "{00BC3D56-EB52-4606-94DF-64F1CE50A2E7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DailyPlant.Library", "DailyPlant.Library\DailyPlant.Library.csproj", "{30A2535D-E134-48CA-9FE2-1DA3630136B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DailyPlant.UnitTest", "DailyPlant.UnitTest\DailyPlant.UnitTest.csproj", "{0955BA2F-D1CE-4FA1-B644-53BF2FE119D1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +20,9 @@ Global
 		{30A2535D-E134-48CA-9FE2-1DA3630136B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{30A2535D-E134-48CA-9FE2-1DA3630136B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{30A2535D-E134-48CA-9FE2-1DA3630136B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0955BA2F-D1CE-4FA1-B644-53BF2FE119D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0955BA2F-D1CE-4FA1-B644-53BF2FE119D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0955BA2F-D1CE-4FA1-B644-53BF2FE119D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0955BA2F-D1CE-4FA1-B644-53BF2FE119D1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

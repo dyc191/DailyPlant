@@ -20,29 +20,32 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = DailyPlant
-build_property.ProjectDir = D:\Project\JetBrain\DailyPlant\DailyPlant\
+build_property.ProjectDir = C:\Users\lenovo\Desktop\DailyPlant-fei\DailyPlant\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.EffectiveAnalysisLevelStyle = 9.0
 build_property.EnableCodeStyleSeverity = 
 
-[D:/Project/JetBrain/DailyPlant/DailyPlant/App.axaml]
+[C:/Users/lenovo/Desktop/DailyPlant-fei/DailyPlant/App.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[D:/Project/JetBrain/DailyPlant/DailyPlant/Views/EncyclopediaView.axaml]
+[C:/Users/lenovo/Desktop/DailyPlant-fei/DailyPlant/Views/EncyclopediaView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[D:/Project/JetBrain/DailyPlant/DailyPlant/Views/InitializationView.axaml]
+[C:/Users/lenovo/Desktop/DailyPlant-fei/DailyPlant/Views/InitializationView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[D:/Project/JetBrain/DailyPlant/DailyPlant/Views/MainView.axaml]
+[C:/Users/lenovo/Desktop/DailyPlant-fei/DailyPlant/Views/MainView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[D:/Project/JetBrain/DailyPlant/DailyPlant/Views/MainWindow.axaml]
+[C:/Users/lenovo/Desktop/DailyPlant-fei/DailyPlant/Views/MainWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[D:/Project/JetBrain/DailyPlant/DailyPlant/Views/PhotoRecognitionView.axaml]
+[C:/Users/lenovo/Desktop/DailyPlant-fei/DailyPlant/Views/PlantDetailView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[D:/Project/JetBrain/DailyPlant/DailyPlant/Views/TodayPlantView.axaml]
+[C:/Users/lenovo/Desktop/DailyPlant-fei/DailyPlant/Views/TakePhotoView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/lenovo/Desktop/DailyPlant-fei/DailyPlant/Views/TodayPlantView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml

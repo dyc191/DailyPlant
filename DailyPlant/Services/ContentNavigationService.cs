@@ -9,10 +9,14 @@ public class ContentNavigationService : IContentNavigationService {
         ViewModelBase viewModel = view switch {
             ContentNavigationConstant.TodayPlantView => ServiceLocator.Current
                 .TodayPlantViewModel,
-            ContentNavigationConstant.PhotoRecognitionView => ServiceLocator.Current
-                .PhotoRecognitionViewModel,
+            ContentNavigationConstant.TakePhotoView => ServiceLocator.Current
+                .TakePhotoViewModel,
             ContentNavigationConstant.EncyclopediaView => ServiceLocator.Current
                 .EncyclopediaViewModel,
+            ContentNavigationConstant.PlantDetailView => ServiceLocator.Current
+                .PlantDetailViewModel,
+            ContentNavigationConstant.PlantView => ServiceLocator.Current
+                .PlantViewModel,
             _ => throw new Exception("未知的视图。")
         };
 

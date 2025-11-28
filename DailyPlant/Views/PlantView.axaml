@@ -1,0 +1,239 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:DailyPlant.Library.ViewModels"
+             xmlns:controls="using:DailyPlant.Library.Controls"
+             mc:Ignorable="d" 
+             d:DesignWidth="800" d:DesignHeight="600"
+             x:Class="DailyPlant.Views.PlantView"
+             d:DataContext="{Binding PlantViewModel, Source={StaticResource ServiceLocator}}">
+
+    <!-- 定义渐变资源 -->
+    <UserControl.Resources>
+        <LinearGradientBrush x:Key="GreenGradient" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#1B5E20" Offset="0"/>
+            <GradientStop Color="#2E7D32" Offset="1"/>
+        </LinearGradientBrush>
+        
+        <LinearGradientBrush x:Key="RedGradient" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#F44336" Offset="0"/>
+            <GradientStop Color="#D32F2F" Offset="1"/>
+        </LinearGradientBrush>
+        
+        <LinearGradientBrush x:Key="LightGreenGradient" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#4CAF50" Offset="0"/>
+            <GradientStop Color="#45a049" Offset="1"/>
+        </LinearGradientBrush>
+        
+        <LinearGradientBrush x:Key="BackgroundGradient" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#F8FFFE" Offset="0"/>
+            <GradientStop Color="#F0F7F4" Offset="1"/>
+        </LinearGradientBrush>
+        
+        <LinearGradientBrush x:Key="WhiteGradient" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#FFFFFF" Offset="0"/>
+            <GradientStop Color="#F8F9FA" Offset="1"/>
+        </LinearGradientBrush>
+    </UserControl.Resources>
+
+    <Grid Margin="20" Background="{StaticResource BackgroundGradient}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- 标题栏 -->
+        <Border Grid.Row="0" 
+                Background="{StaticResource GreenGradient}" 
+                CornerRadius="12" 
+                Padding="20" 
+                Margin="0,0,0,25">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                
+                <!-- 返回按钮 -->
+                <Button Grid.Column="0" 
+                        Content="‹ 返回" 
+                        Command="{Binding GoBackCommand}"
+                        Background="Transparent"
+                        Foreground="White"
+                        FontSize="16"
+                        FontWeight="SemiBold"
+                        BorderThickness="0"
+                        Padding="15,8"
+                        Cursor="Hand">
+                    <Button.Styles>
+                        <Style Selector="Button:pointerover">
+                            <Setter Property="Background" Value="#1565C0"/>
+                            <Setter Property="Foreground" Value="White"/>
+                        </Style>
+                    </Button.Styles>
+                </Button>
+
+                <!-- 标题 -->
+                <TextBlock Grid.Column="1" 
+                           Text="{Binding CurrentPlant.Name}" 
+                           FontSize="28" 
+                           FontWeight="Bold"
+                           Foreground="White"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"/>
+            </Grid>
+        </Border>
+
+        <!-- 植物详情内容 -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="0,0,0,20">
+            <StackPanel Spacing="20">
+                <!-- 植物图片 -->
+                <Border Background="{StaticResource WhiteGradient}"
+                        CornerRadius="16"
+                        BorderBrush="#E0E0E0"
+                        BorderThickness="1"
+                        HorizontalAlignment="Center"
+                        Width="400" Height="300">
+                    <controls:AsyncImage 
+                        SourceUrl="{Binding CurrentPlant.Image}"
+                        Stretch="Uniform"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        MaxHeight="280"
+                        MaxWidth="380"/>
+                </Border>
+
+                <!-- 分类标签 -->
+                <Border Background="{StaticResource LightGreenGradient}" 
+                        CornerRadius="20" 
+                        Padding="15,8" 
+                        HorizontalAlignment="Center">
+                    <TextBlock Text="{Binding CurrentPlant.Category}" 
+                               FontSize="14" 
+                               Foreground="White"
+                               FontWeight="Bold"
+                               TextAlignment="Center"/>
+                </Border>
+
+                <!-- 基本信息网格 -->
+                <Grid ColumnDefinitions="*,*" Margin="0,10,0,0">
+                    <!-- 播种季节 -->
+                    <Border Grid.Column="0" 
+                            Background="#FAFBFC" 
+                            CornerRadius="12" 
+                            Margin="10,5" 
+                            Padding="15"
+                            BorderBrush="#E3F2FD"
+                            BorderThickness="1">
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="🌱 播种季节" 
+                                       FontSize="13" 
+                                       Foreground="#78909C"
+                                       FontWeight="Medium"
+                                       Margin="0,0,0,8"/>
+                            <TextBlock Text="{Binding CurrentPlant.SeasonSowing}" 
+                                       FontSize="15" 
+                                       Foreground="#37474F"
+                                       FontWeight="SemiBold"
+                                       TextAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- 开花季节 -->
+                    <Border Grid.Column="1" 
+                            Background="#FAFBFC" 
+                            CornerRadius="12" 
+                            Margin="10,5" 
+                            Padding="15"
+                            BorderBrush="#E3F2FD"
+                            BorderThickness="1">
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="🌸 开花季节" 
+                                       FontSize="13" 
+                                       Foreground="#78909C"
+                                       FontWeight="Medium"
+                                       Margin="0,0,0,8"/>
+                            <TextBlock Text="{Binding CurrentPlant.SeasonBloom}" 
+                                       FontSize="15" 
+                                       Foreground="#37474F"
+                                       FontWeight="SemiBold"
+                                       TextAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+
+                <!-- 生长信息网格 -->
+                <Grid ColumnDefinitions="*,*">
+                    <!-- 生长区域 -->
+                    <Border Grid.Column="0" 
+                            Background="#FAFBFC" 
+                            CornerRadius="12" 
+                            Margin="10,5" 
+                            Padding="15"
+                            BorderBrush="#E3F2FD"
+                            BorderThickness="1">
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="🗺️ 适宜区域" 
+                                       FontSize="13" 
+                                       Foreground="#78909C"
+                                       FontWeight="Medium"
+                                       Margin="0,0,0,8"/>
+                            <TextBlock Text="{Binding CurrentPlant.Zone}" 
+                                       FontSize="15" 
+                                       Foreground="#37474F"
+                                       FontWeight="SemiBold"
+                                       TextAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- 浇水需求 -->
+                    <Border Grid.Column="1" 
+                            Background="#FAFBFC" 
+                            CornerRadius="12" 
+                            Margin="10,5" 
+                            Padding="15"
+                            BorderBrush="#E3F2FD"
+                            BorderThickness="1">
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="💧 浇水需求" 
+                                       FontSize="13" 
+                                       Foreground="#78909C"
+                                       FontWeight="Medium"
+                                       Margin="0,0,0,8"/>
+                            <TextBlock Text="{Binding CurrentPlant.Water}" 
+                                       FontSize="15" 
+                                       Foreground="#37474F"
+                                       FontWeight="SemiBold"
+                                       TextAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+
+                <!-- 详细描述 -->
+                <Border Background="{StaticResource WhiteGradient}" 
+                        CornerRadius="16" 
+                        Padding="25"
+                        BorderBrush="#E8F5E8"
+                        BorderThickness="1">
+                    <StackPanel>
+                        <TextBlock Text="📖 植物描述" 
+                                   FontSize="16" 
+                                   Foreground="#78909C"
+                                   FontWeight="Medium"
+                                   Margin="0,0,0,12"/>
+                        <ScrollViewer MaxHeight="200" VerticalScrollBarVisibility="Auto">
+                            <TextBlock Text="{Binding CurrentPlant.Description}" 
+                                       FontSize="15" 
+                                       Foreground="#37474F"
+                                       FontWeight="SemiBold"
+                                       TextWrapping="Wrap"/>
+                        </ScrollViewer>
+                    </StackPanel>
+                </Border>
+
+                
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

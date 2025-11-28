@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Avalonia;
 using Avalonia.Controls;
 using DailyPlant.Library.Services;
@@ -45,8 +45,14 @@ public class ServiceLocator {
     public EncyclopediaViewModel EncyclopediaViewModel =>
         _serviceProvider.GetService<EncyclopediaViewModel>();
     
-    public PhotoRecognitionViewModel PhotoRecognitionViewModel =>
-        _serviceProvider.GetService<PhotoRecognitionViewModel>();
+    public  TakePhotoViewModel TakePhotoViewModel =>
+        _serviceProvider.GetService<TakePhotoViewModel>();
+    
+    public PlantDetailViewModel PlantDetailViewModel =>
+        _serviceProvider.GetService<PlantDetailViewModel>();
+    
+    public PlantViewModel PlantViewModel =>
+        _serviceProvider.GetService<PlantViewModel>();
     
     
 
@@ -60,7 +66,9 @@ public class ServiceLocator {
         
         serviceCollection.AddSingleton<TodayPlantViewModel>();
         serviceCollection.AddSingleton<EncyclopediaViewModel>();
-        serviceCollection.AddSingleton<PhotoRecognitionViewModel>();
+        serviceCollection.AddSingleton<TakePhotoViewModel>();
+        serviceCollection.AddSingleton<PlantDetailViewModel>();
+        serviceCollection.AddSingleton<PlantViewModel>();
         
         
 
@@ -68,6 +76,13 @@ public class ServiceLocator {
             .AddSingleton<IRootNavigationService, RootNavigationService>();
         serviceCollection
             .AddSingleton<IMenuNavigationService, MenuNavigationService>();
+        serviceCollection
+            .AddSingleton<IContentNavigationService, ContentNavigationService>();
+        
+        serviceCollection.AddSingleton<IPlantApiService, PlantApiService>();         
+        serviceCollection.AddSingleton<IPlantRecognitionService, PlantRecognitionService>(); 
+        
+        serviceCollection.AddSingleton<DailyService>();
         
         _serviceProvider = serviceCollection.BuildServiceProvider();
          

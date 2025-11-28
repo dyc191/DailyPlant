@@ -1,123 +1,203 @@
-﻿<UserControl xmlns="https://github.com/avaloniaui"
+<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:icon="https://github.com/projektanker/icons.avalonia"
              xmlns:lc="using:DailyPlant.Converters"
              xmlns:lvm="using:DailyPlant.Library.ViewModels"
-             xmlns:i="using:Avalonia.Xaml.Interactivity"
-             xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
+             xmlns:services="clr-namespace:DailyPlant.Library.Services;assembly=DailyPlant.Library"
              mc:Ignorable="d"
              d:DesignWidth="800"
              d:DesignHeight="450"
              x:Class="DailyPlant.Views.MainView"
              DataContext="{Binding MainViewModel, Source={StaticResource ServiceLocator}}">
+    
     <UserControl.Resources>
-        <lc:CountToBoolConverter x:Key="CountToBoolConverter"></lc:CountToBoolConverter>
+        <lc:CountToBoolConverter x:Key="CountToBoolConverter"/>
+        
+        <!-- 颜色资源 -->
+        <Color x:Key="PrimaryGreen">#4CAF50</Color>
+        <Color x:Key="LightGreen">#E8F5E8</Color>
+        <Color x:Key="MediumGreen">#81C784</Color>
+        <Color x:Key="DarkGreen">#388E3C</Color>
+        <Color x:Key="TextDark">#1B5E20</Color>
+        <Color x:Key="TextLight">#FFFFFF</Color>
+        <Color x:Key="HoverGreen">#66BB6A</Color>
+        <Color x:Key="BackgroundGreen">#FAFDFA</Color>
+        
+        <SolidColorBrush x:Key="PrimaryGreenBrush" Color="{StaticResource PrimaryGreen}"/>
+        <SolidColorBrush x:Key="LightGreenBrush" Color="{StaticResource LightGreen}"/>
+        <SolidColorBrush x:Key="MediumGreenBrush" Color="{StaticResource MediumGreen}"/>
+        <SolidColorBrush x:Key="DarkGreenBrush" Color="{StaticResource DarkGreen}"/>
+        <SolidColorBrush x:Key="TextDarkBrush" Color="{StaticResource TextDark}"/>
+        <SolidColorBrush x:Key="TextLightBrush" Color="{StaticResource TextLight}"/>
+        <SolidColorBrush x:Key="HoverGreenBrush" Color="{StaticResource HoverGreen}"/>
+        <SolidColorBrush x:Key="BackgroundGreenBrush" Color="{StaticResource BackgroundGreen}"/>
+        
+        <!-- 创建菜单项选中转换器实例 -->
+        <lc:MenuItemEqualsConverter x:Key="MenuItemEqualsConverter"/>
     </UserControl.Resources>
 
-    <SplitView IsPaneOpen="{Binding IsPaneOpen, Mode=TwoWay}">
-        <SplitView.Pane>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="50"></RowDefinition>
-                    <RowDefinition Height="*"></RowDefinition>
-                </Grid.RowDefinitions>
+    <UserControl.Styles>
+        <Style Selector="Button.NavButton">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Padding" Value="16,10"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="{StaticResource TextDarkBrush}"/>
+        </Style>
+        
+        <Style Selector="Button.NavButton:pointerover">
+            <Setter Property="Background" Value="{StaticResource HoverGreenBrush}"/>
+            <Setter Property="Foreground" Value="{StaticResource TextLightBrush}"/>
+        </Style>
+        
+        <Style Selector="Button.TopNavButton">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0,0,0,2"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Padding" Value="20,15"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="{StaticResource TextDarkBrush}"/>
+        </Style>
+        
+        <Style Selector="Button.TopNavButton:pointerover">
+            <Setter Property="Background" Value="{StaticResource HoverGreenBrush}"/>
+            <Setter Property="Foreground" Value="{StaticResource TextLightBrush}"/>
+        </Style>
+        
+        <!-- 选中状态的样式 -->
+        <Style Selector="Button.TopNavButton.selected">
+            <Setter Property="Background" Value="{StaticResource MediumGreenBrush}"/>
+            <Setter Property="Foreground" Value="{StaticResource TextLightBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource DarkGreenBrush}"/>
+        </Style>
+    </UserControl.Styles>
 
-                <Grid Grid.Row="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="50"></ColumnDefinition>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
+    <Grid Background="{StaticResource BackgroundGreenBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-                    <Button Grid.Column="0"
-                            Background="#3498DB"
-                            VerticalAlignment="Stretch"
-                            HorizontalAlignment="Stretch"
-                            Command="{Binding ClosePaneCommand}">
-                        <icon:Icon Foreground="#ffffff"
-                                   Value="fa-x">
-                        </icon:Icon>
-                    </Button>
-
-                    <Grid Grid.Column="1">
-                        <Label Foreground="#3498DB"
-                               VerticalAlignment="Center"
-                               FontSize="20"
-                               Margin="10,0,0,0"
-                               Content="每日植物">
-                        </Label>
-                    </Grid>
-                </Grid>
-
-                <ListBox Grid.Row="1"
-                         SelectedItem="{Binding SelectedMenuItem}"
-                         ItemsSource="{Binding Source={x:Static lvm:MenuItem.MenuItems}}">
-                    <i:Interaction.Behaviors>
-                        <ia:EventTriggerBehavior EventName="Tapped">
-                            <ia:InvokeCommandAction
-                                Command="{Binding OnMenuTappedCommand}">
-                            </ia:InvokeCommandAction>
-                        </ia:EventTriggerBehavior>
-                    </i:Interaction.Behaviors>
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <Label Content="{Binding Name}"
-                                   FontSize="20"
-                                   Margin="50,5,0,5">
-                            </Label>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-            </Grid>
-        </SplitView.Pane>
-
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="50"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-            </Grid.RowDefinitions>
-
-            <Grid Grid.Row="0">
+        <!-- 顶部导航栏 -->
+        <Border Grid.Row="0" 
+                Background="{StaticResource LightGreenBrush}">
+            <Grid Margin="20,0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"></ColumnDefinition>
-                    <ColumnDefinition Width="Auto"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <Button Grid.Column="0"
-                        Width="50"
-                        VerticalAlignment="Stretch"
-                        Command="{Binding OpenPaneCommand}">
-                    <icon:Icon Foreground="#3498DB"
-                               Value="fa-bars">
-                    </icon:Icon>
-                </Button>
-
-                <Button Grid.Column="1"
-                        Width="50"
-                        VerticalAlignment="Stretch"
-                        Command="{Binding GoBackCommand}"
-                        IsVisible="{Binding ContentStack.Count, Converter={StaticResource CountToBoolConverter}, ConverterParameter=1}">
-                    <icon:Icon Foreground="#3498DB"
-                               Value="fa-arrow-left">
-                    </icon:Icon>
-                </Button>
-
-                <Grid Grid.Column="2"
-                      Background="#3498DB">
-                    <Label Foreground="#ffffff"
-                           VerticalAlignment="Center"
-                           FontSize="20"
-                           Margin="10,0,0,0"
-                           Content="{Binding Title}">
-                    </Label>
-                </Grid>
+                <!-- 左侧Logo和标题 -->
+                <StackPanel Grid.Column="0" 
+                            Orientation="Horizontal" 
+                            VerticalAlignment="Center"
+                            Spacing="12">
+                    <Border Background="{StaticResource PrimaryGreenBrush}"
+                            CornerRadius="8"
+                            Width="40"
+                            Height="40"
+                            VerticalAlignment="Center">
+                        <TextBlock Text="🌱"
+                                   FontSize="20"
+                                   Foreground="{StaticResource TextLightBrush}"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
+                    </Border>
+                    
+                    <StackPanel VerticalAlignment="Center" Spacing="2">
+                        <TextBlock Text="每日植物"
+                                   FontSize="18"
+                                   FontWeight="Bold"
+                                   Foreground="{StaticResource TextDarkBrush}"/>
+                        <TextBlock Text="发现自然之美"
+                                   FontSize="12"
+                                   Foreground="{StaticResource DarkGreenBrush}"/>
+                    </StackPanel>
+                    
+                    <!-- 返回按钮 -->
+                    <Button Classes="NavButton"
+                            Command="{Binding GoBackCommand}"
+                            IsVisible="{Binding ContentStack.Count, Converter={StaticResource CountToBoolConverter}, ConverterParameter=1}"
+                            Margin="20,0,0,0">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <icon:Icon Value="fa-arrow-left" Width="14" Height="14"/>
+                            <TextBlock Text="返回"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+                
+                <!-- 右侧导航菜单 -->
+                <StackPanel Grid.Column="2"
+                            Orientation="Horizontal"
+                            VerticalAlignment="Center"
+                            Spacing="0">
+                    <!-- 今日植物 -->
+                    <Button Name="TodayPlantButton"
+                            BorderThickness="0,0,0,2"
+                            Cursor="Hand"
+                            Padding="20,15"
+                            FontSize="14"
+                            Command="{Binding OnMenuTappedCommand}"
+                            CommandParameter="{x:Static services:MenuNavigationConstant.TodayPlantView}">
+                        <Button.Tag>
+                            <lvm:MenuItem View="{x:Static services:MenuNavigationConstant.TodayPlantView}" Name="今日植物"/>
+                        </Button.Tag>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <icon:Icon Value="fa-seedling" Width="14" Height="14"/>
+                            <TextBlock Text="今日植物" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                    
+                    <!-- 植物百科 -->
+                    <Button Name="EncyclopediaButton"
+                            BorderThickness="0,0,0,2"
+                            Cursor="Hand"
+                            Padding="20,15"
+                            FontSize="14"
+                            Command="{Binding OnMenuTappedCommand}"
+                            CommandParameter="{x:Static services:MenuNavigationConstant.EncyclopediaView}">
+                        <Button.Tag>
+                            <lvm:MenuItem View="{x:Static services:MenuNavigationConstant.EncyclopediaView}" Name="植物百科"/>
+                        </Button.Tag>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <icon:Icon Value="fa-book" Width="14" Height="14"/>
+                            <TextBlock Text="植物百科" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                    
+                    <!-- 拍照识图 -->
+                    <Button Name="PhotoRecognitionButton"
+                            BorderThickness="0,0,0,2"
+                            Cursor="Hand"
+                            Padding="20,15"
+                            FontSize="14"
+                            Command="{Binding OnMenuTappedCommand}"
+                            CommandParameter="{x:Static services:MenuNavigationConstant.TakePhotoView}">
+                        <Button.Tag>
+                            <lvm:MenuItem View="{x:Static services:MenuNavigationConstant.TakePhotoView}" Name="拍照识图"/>
+                        </Button.Tag>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <icon:Icon Value="fa-camera" Width="14" Height="14"/>
+                            <TextBlock Text="拍照识图" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
             </Grid>
+        </Border>
 
-            <ContentControl Grid.Row="1"
-                            Content="{Binding Content}">
-            </ContentControl>
-        </Grid>
-    </SplitView>
+        <!-- 内容区域 -->
+        <Border Grid.Row="1" 
+                Margin="20"
+                Background="{StaticResource TextLightBrush}"
+                CornerRadius="12">
+            <ContentControl Content="{Binding Content}"
+                           Margin="0"/>
+        </Border>
+    </Grid>
 </UserControl>
+

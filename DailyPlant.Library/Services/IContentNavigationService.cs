@@ -9,7 +9,12 @@ public interface IContentNavigationService {
 public static class ContentNavigationConstant {
     public const string TodayPlantView = nameof(TodayPlantView);
 
-    public const string PhotoRecognitionView = nameof(PhotoRecognitionView);
+    public const string TakePhotoView = nameof(TakePhotoView);
 
     public const string EncyclopediaView = nameof(EncyclopediaView);
+    
+    public const string PlantDetailView = nameof(PlantDetailView);
+    
+    public const string PlantView = nameof(PlantView);
+    
 }

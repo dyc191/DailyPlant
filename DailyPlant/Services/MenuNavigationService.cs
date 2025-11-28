@@ -12,8 +12,8 @@ public class MenuNavigationService : IMenuNavigationService {
                 .TodayPlantViewModel,
             MenuNavigationConstant.EncyclopediaView => ServiceLocator.Current
                 .EncyclopediaViewModel,
-            MenuNavigationConstant.PhotoRecognitionView => ServiceLocator.Current
-                .PhotoRecognitionViewModel,
+            MenuNavigationConstant.TakePhotoView => ServiceLocator.Current
+                .TakePhotoViewModel,
             _ => throw new Exception("未知的视图。")
         };
 

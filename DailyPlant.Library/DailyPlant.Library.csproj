@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFramework>net9.0</TargetFramework>
@@ -9,15 +9,17 @@
     <ItemGroup>
         <PackageReference Include="AvaloniaInfiniteScrolling.Collection" Version="1.0.1" />
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.11">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.11" />
+        <PackageReference Include="ReactiveUI.Avalonia" Version="11.3.8" />
         <PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
     </ItemGroup>
 
     <ItemGroup>
         <None Remove="poetrydb.sqlite3" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Helpers\" />
     </ItemGroup>
 
 </Project>

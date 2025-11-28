@@ -2,9 +2,253 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="using:DailyPlant.Library.ViewModels"
+             xmlns:converters="using:DailyPlant.Library.Converters"
+             xmlns:controls="using:DailyPlant.Library.Controls"
+             mc:Ignorable="d" 
+             d:DesignWidth="1200" d:DesignHeight="800"
              x:Class="DailyPlant.Views.EncyclopediaView"
              d:DataContext="{Binding EncyclopediaViewModel, Source={StaticResource ServiceLocator}}">
-    
-    Welcome to Avalonia!
+            
+             
+
+    <UserControl.Resources>
+        <converters:IntToBoolConverter x:Key="IntToBoolConverter"/>
+        
+        <Bitmap x:Key="PlaceholderBitmap">
+        </Bitmap>
+    </UserControl.Resources>
+
+    <Grid Margin="20" Background="#F5F5F5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- 标题 -->
+        <TextBlock Grid.Row="0" Text="植物百科" 
+                   FontSize="28" FontWeight="Bold" 
+                   Foreground="#1B5E20" Margin="0,0,0,20"
+                   HorizontalAlignment="Center"/>
+
+        <!-- 搜索和筛选区域 -->
+        <Border Grid.Row="1" Background="White" 
+                CornerRadius="8" Padding="15" Margin="0,0,0,20"
+                BorderBrush="#E0E0E0" BorderThickness="1">
+            <Grid ColumnDefinitions="*,Auto,Auto" VerticalAlignment="Center">
+                <!-- 搜索框 -->
+                <TextBox Grid.Column="0" 
+                         Text="{Binding SearchText, Mode=TwoWay}"
+                         Watermark="搜索植物名称"
+                         FontSize="14" Padding="10"
+                         Margin="0,0,10,0">
+                    <TextBox.Styles>
+                        <Style Selector="TextBox">
+                            <Setter Property="BorderThickness" Value="1"/>
+                            <Setter Property="BorderBrush" Value="#E0E0E0"/>
+                            <Setter Property="CornerRadius" Value="4"/>
+                        </Style>
+                    </TextBox.Styles>
+                </TextBox>
+
+                <!-- 分类筛选 -->
+                <ComboBox Grid.Column="1" 
+                          ItemsSource="{Binding Categories}"
+                          SelectedItem="{Binding SelectedCategory}"
+                          Margin="0,0,10,0"
+                          MinWidth="120"
+                          FontSize="14">
+                    <ComboBox.Styles>
+                        <Style Selector="ComboBox">
+                            <Setter Property="BorderThickness" Value="1"/>
+                            <Setter Property="BorderBrush" Value="#E0E0E0"/>
+                            <Setter Property="CornerRadius" Value="4"/>
+                        </Style>
+                    </ComboBox.Styles>
+                </ComboBox>
+
+                <!-- 清除搜索按钮 -->
+                <Button Grid.Column="2" 
+                        Content="清除搜索" 
+                        Command="{Binding ClearSearchCommand}"
+                        Background="#FF5722"
+                        Foreground="White"
+                        FontSize="12"
+                        Padding="15,8"
+                        CornerRadius="4"/>
+            </Grid>
+        </Border>
+
+        <!-- 植物列表 -->
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding Plants}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" 
+                                   HorizontalAlignment="Center"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Background="White"
+                                BorderBrush="#E0E0E0"
+                                BorderThickness="1"
+                                CornerRadius="8"
+                                Width="280" Height="400"  
+                                Margin="10">
+                            <Grid Margin="15">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="160"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="40"/> 
+                                </Grid.RowDefinitions>
+
+                                <!-- 植物图片 - 使用异步加载控件 -->
+                                <Border Grid.Row="0" 
+                                        Background="#F8F9FA"
+                                        CornerRadius="6"
+                                        Margin="0,0,0,10">
+                                    <controls:AsyncImage 
+                                        SourceUrl="{Binding Image}"
+                                        Stretch="UniformToFill"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        MaxHeight="140" 
+                                        MaxWidth="240"/>
+                                </Border>
+
+                                <!-- 植物名称 -->
+                                <TextBlock Grid.Row="1" 
+                                           Text="{Binding Name}" 
+                                           FontSize="18"
+                                           FontWeight="Bold"
+                                           Foreground="#2E7D32"
+                                           Margin="0,0,0,5"
+                                           TextWrapping="Wrap"/>
+
+                                <!-- 分类 -->
+                                <Border Grid.Row="2" 
+                                        Background="#E8F5E8" 
+                                        CornerRadius="12" 
+                                        Padding="6,2" 
+                                        HorizontalAlignment="Left"
+                                        Margin="0,0,0,8">
+                                    <TextBlock Text="{Binding Category}" 
+                                               FontSize="10" 
+                                               Foreground="#2E7D32"
+                                               FontWeight="SemiBold"/>
+                                </Border>
+
+                                <!-- 生长季节 -->
+                                <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,0,0,5">
+                                    <TextBlock Text="播种季节: " 
+                                               FontSize="12"
+                                               Foreground="#666"/>
+                                    <TextBlock Text="{Binding SeasonSowing}" 
+                                               FontSize="12"
+                                               Foreground="#666"/>
+                                </StackPanel>
+
+                                <!-- 开花季节 -->
+                                <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="0,0,0,5">
+                                    <TextBlock Text="开花季节: " 
+                                               FontSize="12"
+                                               Foreground="#666"/>
+                                    <TextBlock Text="{Binding SeasonBloom}" 
+                                               FontSize="12"
+                                               Foreground="#666"/>
+                                </StackPanel>
+
+                                <!-- 生长区域和浇水 -->
+                                <Grid Grid.Row="5" ColumnDefinitions="*,*" Margin="0,0,0,8">
+                                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                        <TextBlock Text="区域: " 
+                                                   FontSize="12"
+                                                   Foreground="#666"/>
+                                        <TextBlock Text="{Binding Zone}" 
+                                                   FontSize="12"
+                                                   Foreground="#666"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                        <TextBlock Text="浇水: " 
+                                                   FontSize="12"
+                                                   Foreground="#666"/>
+                                        <TextBlock Text="{Binding Water}" 
+                                                   FontSize="12"
+                                                   Foreground="#666"/>
+                                    </StackPanel>
+                                </Grid>
+
+                                <!-- 描述 - 可滚动区域 -->
+                                <TextBlock Grid.Row="6" 
+                                           Text="{Binding Description}" 
+                                           FontSize="11" 
+                                           Foreground="#555"
+                                           TextWrapping="Wrap"
+                                           MaxHeight="60"
+                                           TextTrimming="CharacterEllipsis"/>
+                                
+                                <!-- 查看详情按钮 - 固定在底部 -->
+                                <Button Grid.Row="7" 
+                                        Content="查看详情" 
+                                        Command="{Binding DataContext.ShowPlantDetailCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                        CommandParameter="{Binding}"
+                                        Background="#4CAF50"
+                                        Foreground="White"
+                                        FontSize="12"
+                                        Padding="10,5"
+                                        CornerRadius="4"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Center"
+                                        Margin="0"/>
+                                
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+        <!-- 空状态提示 -->
+        <Border Grid.Row="2" 
+                Background="Transparent" 
+                IsVisible="{Binding Plants.Count, Converter={StaticResource IntToBoolConverter}}"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="🎄" FontSize="48" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+                <TextBlock Text="没有找到匹配的植物" 
+                           FontSize="16" 
+                           Foreground="#666"
+                           HorizontalAlignment="Center"/>
+                <TextBlock Text="尝试调整搜索条件或选择其他分类" 
+                           FontSize="12" 
+                           Foreground="#999"
+                           HorizontalAlignment="Center"
+                           Margin="0,5,0,0"/>
+            </StackPanel>
+        </Border>
+
+        <!-- 加载指示器（可选） -->
+        <Border Grid.Row="2" 
+                Background="#CCFFFFFF" 
+                IsVisible="{Binding IsLoading}"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <ProgressBar IsIndeterminate="True" Width="100" Height="10" Margin="0,0,0,10"/>
+                <TextBlock Text="加载中..." 
+                           FontSize="14" 
+                           Foreground="#666"
+                           HorizontalAlignment="Center"/>
+            </StackPanel>
+        </Border>
+    </Grid>
 </UserControl>
