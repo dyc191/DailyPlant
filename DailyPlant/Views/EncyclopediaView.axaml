@@ -15,9 +15,7 @@
     <UserControl.Resources>
         <converters:IntToBoolConverter x:Key="IntToBoolConverter"/>
         
-        <!-- 简化的占位图资源 -->
         <Bitmap x:Key="PlaceholderBitmap">
-            <!-- 我们将通过代码创建占位图 -->
         </Bitmap>
     </UserControl.Resources>
 
@@ -42,7 +40,7 @@
                 <!-- 搜索框 -->
                 <TextBox Grid.Column="0" 
                          Text="{Binding SearchText, Mode=TwoWay}"
-                         Watermark="搜索植物名称、描述或季节..."
+                         Watermark="搜索植物名称"
                          FontSize="14" Padding="10"
                          Margin="0,0,10,0">
                     <TextBox.Styles>
@@ -102,14 +100,14 @@
                                 Margin="10">
                             <Grid Margin="15">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="160"/> <!-- 稍微减少图片高度 -->
+                                    <RowDefinition Height="160"/>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="*"/> <!-- 描述区域自动扩展 -->
-                                    <RowDefinition Height="40"/> <!-- 固定按钮区域高度 -->
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="40"/> 
                                 </Grid.RowDefinitions>
 
                                 <!-- 植物图片 - 使用异步加载控件 -->
