@@ -1,5 +1,4 @@
-﻿// EncyclopediaViewModel.cs
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DailyPlant.Library.Models;
 using DailyPlant.Library.Data;
@@ -53,7 +52,7 @@ namespace DailyPlant.Library.ViewModels
             {
                 IsLoading = true;
                 
-                // 模拟异步加载（如果是实际数据库操作，这里应该是异步的）
+                // 模拟异步加载
                 await Task.Run(() =>
                 {
                     _allPlants = _dbContext.Plants.ToList();
@@ -125,10 +124,7 @@ namespace DailyPlant.Library.ViewModels
             {
                 var searchLower = SearchText.ToLower();
                 filteredPlants = filteredPlants.Where(p => 
-                    (p.Name?.ToLower().Contains(searchLower) ?? false) ||
-                    (p.Description?.ToLower().Contains(searchLower) ?? false) ||
-                    (p.SeasonSowing?.ToLower().Contains(searchLower) ?? false) ||
-                    (p.SeasonBloom?.ToLower().Contains(searchLower) ?? false));
+                    p.Name?.ToLower().Contains(searchLower) ?? false);
             }
 
             Plants.Clear();
