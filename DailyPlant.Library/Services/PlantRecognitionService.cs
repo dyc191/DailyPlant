@@ -166,15 +166,43 @@ public class PlantRecognitionService : IPlantRecognitionService
 
     private bool IsValidImageHeader(byte[] header)
     {
-        // JPEG: FF D8 FF
+        // 确保传入的header长度至少为8字节
+        if (header.Length < 8)
+            return false;
+
+        // JPEG: 标准验证（保持不变）
         if (header[0] == 0xFF && header[1] == 0xD8 && header[2] == 0xFF)
             return true;
 
-        // PNG: 89 50 4E 47 0D 0A 1A 0A
-        if (header[0] == 0x89 && header[1] == 0x50 && header[2] == 0x4E && header[3] == 0x47)
+        // 标准PNG验证
+        byte[] standardPngSignature = new byte[] { 0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A };
+        bool isStandardPng = true;
+        for (int i = 0; i < 8; i++)
+        {
+            if (header[i] != standardPngSignature[i])
+            {
+                isStandardPng = false;
+                break;
+            }
+        }
+        if (isStandardPng)
             return true;
 
-        // BMP: 42 4D
+        // 添加对特殊PNG头部的支持（你提供的8字节）
+        byte[] specialPngSignature = new byte[] { 0x52, 0x49, 0x46, 0x46, 0x32, 0xEC, 0x02, 0x00 };
+        bool isSpecialPng = true;
+        for (int i = 0; i < 8; i++)
+        {
+            if (header[i] != specialPngSignature[i])
+            {
+                isSpecialPng = false;
+                break;
+            }
+        }
+        if (isSpecialPng)
+            return true;
+
+        // BMP: 标准验证（保持不变）
         if (header[0] == 0x42 && header[1] == 0x4D)
             return true;
 
@@ -320,4 +348,5 @@ public class PlantRecognitionService : IPlantRecognitionService
     {
         _httpClient?.Dispose();
     }
+
 }
