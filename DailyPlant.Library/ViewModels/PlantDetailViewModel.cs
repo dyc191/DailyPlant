@@ -11,13 +11,18 @@ public partial class PlantDetailViewModel : ViewModelBase
 {
     private readonly IPlantRecognitionService _plantRecognitionService;
     private readonly IContentNavigationService _contentNavigationService;
+    
+    // 直接在构造函数中注入分享服务
+    private readonly IWindowsShareService _windowsShareService;
 
     public PlantDetailViewModel(
         IPlantRecognitionService plantRecognitionService,
-        IContentNavigationService contentNavigationService)
+        IContentNavigationService contentNavigationService,
+        IWindowsShareService windowsShareService)  // 添加这个参数
     {
         _plantRecognitionService = plantRecognitionService;
         _contentNavigationService = contentNavigationService;
+        _windowsShareService = windowsShareService;  // 存储分享服务
         Debug.WriteLine("PlantDetailViewModel 构造函数被调用");
     }
 
@@ -41,6 +46,14 @@ public partial class PlantDetailViewModel : ViewModelBase
 
     [ObservableProperty]
     private string _confidenceText = "可信度: 0%";
+
+    [ObservableProperty]
+    private bool _isSharing = false;
+
+    [ObservableProperty]
+    private string _shareStatus = "";
+    
+    public bool IsShareStatusVisible => !string.IsNullOrEmpty(ShareStatus);
 
     public override void SetParameter(object parameter)
     {
@@ -133,8 +146,73 @@ public partial class PlantDetailViewModel : ViewModelBase
     [RelayCommand]
     private async Task ShareInfo()
     {
-        // 分享功能实现
-        await Task.Delay(100);
-        Debug.WriteLine("分享功能被调用");
+        try
+        {
+            IsSharing = true;
+            ShareStatus = "准备分享...";
+            Debug.WriteLine("开始分享植物识别结果");
+            
+            await _windowsShareService.ShareToSystemAsync(this);
+            
+            ShareStatus = "分享完成！内容已复制到剪贴板";
+            Debug.WriteLine("分享完成");
+            
+            await Task.Delay(1500);
+            ShareStatus = "";
+        }
+        catch (Exception ex)
+        {
+            ShareStatus = $"分享失败: {ex.Message}";
+            Debug.WriteLine($"分享异常: {ex.Message}");
+            
+            await Task.Delay(3000);
+            ShareStatus = "";
+        }
+        finally
+        {
+            IsSharing = false;
+        }
+    }
+
+    [RelayCommand]
+    private async Task ShareToWeChat()
+    {
+        await ExecuteShareAction("微信", async () => await _windowsShareService.ShareToWeChatAsync(this));
+    }
+
+    [RelayCommand]
+    private async Task ShareToQQ()
+    {
+        await ExecuteShareAction("QQ", async () => await _windowsShareService.ShareToQQAsync(this));
+    }
+
+    private async Task ExecuteShareAction(string actionName, Func<Task> shareAction)
+    {
+        try
+        {
+            IsSharing = true;
+            ShareStatus = $"{actionName}分享中...";
+            Debug.WriteLine($"开始{actionName}分享");
+            
+            await shareAction();
+            
+            ShareStatus = $"{actionName}分享完成！内容已复制到剪贴板";
+            Debug.WriteLine($"{actionName}分享完成");
+            
+            await Task.Delay(1500);
+            ShareStatus = "";
+        }
+        catch (Exception ex)
+        {
+            ShareStatus = $"{actionName}分享失败: {ex.Message}";
+            Debug.WriteLine($"{actionName}分享异常: {ex.Message}");
+            
+            await Task.Delay(3000);
+            ShareStatus = "";
+        }
+        finally
+        {
+            IsSharing = false;
+        }
     }
 }
