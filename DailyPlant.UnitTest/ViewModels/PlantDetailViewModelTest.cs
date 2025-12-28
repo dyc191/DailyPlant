@@ -10,15 +10,18 @@ public class PlantDetailViewModelTests
 {
     private readonly Mock<IPlantRecognitionService> _mockPlantRecognitionService;
     private readonly Mock<IContentNavigationService> _mockContentNavigationService;
+    private readonly Mock<IWindowsShareService> _mockWindowsShareService;
     private readonly PlantDetailViewModel _viewModel;
 
     public PlantDetailViewModelTests()
     {
         _mockPlantRecognitionService = new Mock<IPlantRecognitionService>();
         _mockContentNavigationService = new Mock<IContentNavigationService>();
+        _mockWindowsShareService = new Mock<IWindowsShareService>();
         _viewModel = new PlantDetailViewModel(
             _mockPlantRecognitionService.Object,
-            _mockContentNavigationService.Object);
+            _mockContentNavigationService.Object,
+            _mockWindowsShareService.Object);
     }
 
     [Fact]
