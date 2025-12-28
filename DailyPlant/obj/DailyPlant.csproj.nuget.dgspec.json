@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\lenovo\\Desktop\\DailyPlant-fei\\DailyPlant\\DailyPlant.csproj": {}
+    "D:\\Avalonia\\DailyPlant-main\\DailyPlant\\DailyPlant.csproj": {}
   },
   "projects": {
-    "C:\\Users\\lenovo\\Desktop\\DailyPlant-fei\\DailyPlant.Library\\DailyPlant.Library.csproj": {
+    "D:\\Avalonia\\DailyPlant-main\\DailyPlant.Library\\DailyPlant.Library.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\lenovo\\Desktop\\DailyPlant-fei\\DailyPlant.Library\\DailyPlant.Library.csproj",
+        "projectUniqueName": "D:\\Avalonia\\DailyPlant-main\\DailyPlant.Library\\DailyPlant.Library.csproj",
         "projectName": "DailyPlant.Library",
-        "projectPath": "C:\\Users\\lenovo\\Desktop\\DailyPlant-fei\\DailyPlant.Library\\DailyPlant.Library.csproj",
+        "projectPath": "D:\\Avalonia\\DailyPlant-main\\DailyPlant.Library\\DailyPlant.Library.csproj",
         "packagesPath": "C:\\Users\\lenovo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\lenovo\\Desktop\\DailyPlant-fei\\DailyPlant.Library\\obj\\",
+        "outputPath": "D:\\Avalonia\\DailyPlant-main\\DailyPlant.Library\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -72,6 +72,10 @@
               "target": "Package",
               "version": "[11.3.8, )"
             },
+            "SkiaSharp": {
+              "target": "Package",
+              "version": "[2.88.9, )"
+            },
             "sqlite-net-pcl": {
               "target": "Package",
               "version": "[1.9.172, )"
@@ -97,14 +101,14 @@
         }
       }
     },
-    "C:\\Users\\lenovo\\Desktop\\DailyPlant-fei\\DailyPlant\\DailyPlant.csproj": {
+    "D:\\Avalonia\\DailyPlant-main\\DailyPlant\\DailyPlant.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\lenovo\\Desktop\\DailyPlant-fei\\DailyPlant\\DailyPlant.csproj",
+        "projectUniqueName": "D:\\Avalonia\\DailyPlant-main\\DailyPlant\\DailyPlant.csproj",
         "projectName": "DailyPlant",
-        "projectPath": "C:\\Users\\lenovo\\Desktop\\DailyPlant-fei\\DailyPlant\\DailyPlant.csproj",
+        "projectPath": "D:\\Avalonia\\DailyPlant-main\\DailyPlant\\DailyPlant.csproj",
         "packagesPath": "C:\\Users\\lenovo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\lenovo\\Desktop\\DailyPlant-fei\\DailyPlant\\obj\\",
+        "outputPath": "D:\\Avalonia\\DailyPlant-main\\DailyPlant\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -125,8 +129,8 @@
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "C:\\Users\\lenovo\\Desktop\\DailyPlant-fei\\DailyPlant.Library\\DailyPlant.Library.csproj": {
-                "projectPath": "C:\\Users\\lenovo\\Desktop\\DailyPlant-fei\\DailyPlant.Library\\DailyPlant.Library.csproj"
+              "D:\\Avalonia\\DailyPlant-main\\DailyPlant.Library\\DailyPlant.Library.csproj": {
+                "projectPath": "D:\\Avalonia\\DailyPlant-main\\DailyPlant.Library\\DailyPlant.Library.csproj"
               }
             }
           }
@@ -186,6 +190,14 @@
             "Semi.Avalonia": {
               "target": "Package",
               "version": "[11.2.1.10, )"
+            },
+            "SkiaSharp": {
+              "target": "Package",
+              "version": "[2.88.9, )"
+            },
+            "SkiaSharp.NativeAssets.Win32": {
+              "target": "Package",
+              "version": "[2.88.9, )"
             },
             "Xaml.Behaviors.Avalonia": {
               "target": "Package",

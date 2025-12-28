@@ -1425,6 +1425,7 @@
           "CommunityToolkit.Mvvm": "8.4.0",
           "Microsoft.EntityFrameworkCore.Sqlite": "9.0.11",
           "ReactiveUI.Avalonia": "11.3.8",
+          "SkiaSharp": "2.88.9",
           "sqlite-net-pcl": "1.9.172"
         },
         "compile": {
@@ -3414,6 +3415,8 @@
       "Microsoft.Extensions.DependencyInjection >= 9.0.11",
       "Projektanker.Icons.Avalonia.FontAwesome >= 9.6.2",
       "Semi.Avalonia >= 11.2.1.10",
+      "SkiaSharp >= 2.88.9",
+      "SkiaSharp.NativeAssets.Win32 >= 2.88.9",
       "Xaml.Behaviors.Avalonia >= 11.3.6.5"
     ]
   },
@@ -3424,11 +3427,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\lenovo\\Desktop\\DailyPlant-fei\\DailyPlant\\DailyPlant.csproj",
+      "projectUniqueName": "D:\\Avalonia\\DailyPlant-main\\DailyPlant\\DailyPlant.csproj",
       "projectName": "DailyPlant",
-      "projectPath": "C:\\Users\\lenovo\\Desktop\\DailyPlant-fei\\DailyPlant\\DailyPlant.csproj",
+      "projectPath": "D:\\Avalonia\\DailyPlant-main\\DailyPlant\\DailyPlant.csproj",
       "packagesPath": "C:\\Users\\lenovo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\lenovo\\Desktop\\DailyPlant-fei\\DailyPlant\\obj\\",
+      "outputPath": "D:\\Avalonia\\DailyPlant-main\\DailyPlant\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -3449,8 +3452,8 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "projectReferences": {
-            "C:\\Users\\lenovo\\Desktop\\DailyPlant-fei\\DailyPlant.Library\\DailyPlant.Library.csproj": {
-              "projectPath": "C:\\Users\\lenovo\\Desktop\\DailyPlant-fei\\DailyPlant.Library\\DailyPlant.Library.csproj"
+            "D:\\Avalonia\\DailyPlant-main\\DailyPlant.Library\\DailyPlant.Library.csproj": {
+              "projectPath": "D:\\Avalonia\\DailyPlant-main\\DailyPlant.Library\\DailyPlant.Library.csproj"
             }
           }
         }
@@ -3510,6 +3513,14 @@
           "Semi.Avalonia": {
             "target": "Package",
             "version": "[11.2.1.10, )"
+          },
+          "SkiaSharp": {
+            "target": "Package",
+            "version": "[2.88.9, )"
+          },
+          "SkiaSharp.NativeAssets.Win32": {
+            "target": "Package",
+            "version": "[2.88.9, )"
           },
           "Xaml.Behaviors.Avalonia": {
             "target": "Package",

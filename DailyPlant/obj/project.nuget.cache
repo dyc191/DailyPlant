@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Cwv6UsKG0FM=",
+  "dgSpecHash": "nBxt3z/z5is=",
   "success": true,
-  "projectFilePath": "C:\\Users\\lenovo\\Desktop\\DailyPlant-fei\\DailyPlant\\DailyPlant.csproj",
+  "projectFilePath": "D:\\Avalonia\\DailyPlant-main\\DailyPlant\\DailyPlant.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\lenovo\\.nuget\\packages\\avalonia\\11.3.8\\avalonia.11.3.8.nupkg.sha512",
     "C:\\Users\\lenovo\\.nuget\\packages\\avalonia.angle.windows.natives\\2.1.25547.20250602\\avalonia.angle.windows.natives.2.1.25547.20250602.nupkg.sha512",
