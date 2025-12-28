@@ -13,6 +13,11 @@ public class ServiceLocator {
     private readonly IServiceProvider _serviceProvider;
 
     private static ServiceLocator _current;
+    
+    public T GetService<T>() where T : class
+    {
+        return _serviceProvider.GetService<T>();
+    }
 
     public static ServiceLocator Current {
         get
@@ -82,6 +87,11 @@ public class ServiceLocator {
         
         serviceCollection.AddSingleton<IPlantApiService, PlantApiService>();         
         serviceCollection.AddSingleton<IPlantRecognitionService, PlantRecognitionService>(); 
+        serviceCollection
+            .AddSingleton<IWindowsShareService, WindowsShareService>();
+        serviceCollection
+            .AddSingleton<IImageTextCombinerService, ImageTextCombinerService>();
+        
 
         serviceCollection
             .AddSingleton<IPlantService, PlantService>();

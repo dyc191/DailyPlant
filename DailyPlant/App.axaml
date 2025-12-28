@@ -1,16 +1,21 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters="using:DailyPlant.Converters"
              x:Class="DailyPlant.App"
              xmlns:local="using:DailyPlant"
              xmlns:semi="https://irihi.tech/semi"
              RequestedThemeVariant="Default">
     <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
 
+    
+    
     <Application.Resources>
         <ResourceDictionary>
             <local:ServiceLocator x:Key="ServiceLocator"></local:ServiceLocator>
         </ResourceDictionary>
     </Application.Resources>
+    
+    
 
     <Application.DataTemplates>
         <local:ViewLocator />
