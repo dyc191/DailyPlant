@@ -2,9 +2,12 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="using:DailyPlant.Library.ViewModels"
+             xmlns:converters="clr-namespace:DailyPlant.Converters"
+             xmlns:views="clr-namespace:DailyPlant.Views"
              x:Class="DailyPlant.Views.PlantDetailView">
     
     <UserControl.Resources>
+        <views:StringIsNotEmptyConverter x:Key="StringIsNotEmptyConverter"/>
         <LinearGradientBrush x:Key="GlassEffect" StartPoint="0,0" EndPoint="0,1">
             <GradientStop Offset="0" Color="#20FFFFFF"/>
             <GradientStop Offset="1" Color="#10FFFFFF"/>
@@ -164,29 +167,92 @@
                     </StackPanel>
                 </Border>
 
-                <!-- 操作按钮区域 -->
-                <StackPanel Orientation="Horizontal" 
-                            HorizontalAlignment="Center"
-                            Margin="0,40,0,20"
-                            Spacing="25">
-                    
-                    <Button Content="🔙 返回识别"
-                            Command="{Binding GoBackCommand}"
-                            Classes="primary-button"
-                            MinWidth="120"/>
-                    
-                    <Button Content="📤 分享信息"
-                            Command="{Binding ShareInfoCommand}"
-                            Classes="primary-button"
-                            MinWidth="120">
-                        <Button.Background>
-                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                <GradientStop Offset="0" Color="#2196F3"/>
-                                <GradientStop Offset="1" Color="#1976D2"/>
-                            </LinearGradientBrush>
-                        </Button.Background>
-                    </Button>
-                </StackPanel>
+ <!-- 在现有的按钮区域添加分享按钮 -->
+<StackPanel Orientation="Horizontal" 
+            HorizontalAlignment="Center"
+            Margin="0,40,0,20"
+            Spacing="25">
+    
+    <Button Content="🔙 返回识别"
+            Command="{Binding GoBackCommand}"
+            Classes="primary-button"
+            MinWidth="120"
+            IsEnabled="{Binding !IsSharing}"/>
+    
+    <Button Content="📤 复制分享"
+            Command="{Binding ShareInfoCommand}"
+            Classes="primary-button"
+            MinWidth="120"
+            IsEnabled="{Binding !IsSharing}">
+        <Button.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Offset="0" Color="#2196F3"/>
+                <GradientStop Offset="1" Color="#1976D2"/>
+            </LinearGradientBrush>
+        </Button.Background>
+    </Button>
+    
+    <Button Content="💚 分享到微信"
+            Command="{Binding ShareToWeChatCommand}"
+            Classes="primary-button"
+            MinWidth="120"
+            IsEnabled="{Binding !IsSharing}">
+        <Button.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Offset="0" Color="#07C160"/>
+                <GradientStop Offset="1" Color="#06B359"/>
+            </LinearGradientBrush>
+        </Button.Background>
+    </Button>
+    
+    <Button Content="💙 分享到QQ"
+            Command="{Binding ShareToQQCommand}"
+            Classes="primary-button"
+            MinWidth="120"
+            IsEnabled="{Binding !IsSharing}">
+        <Button.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Offset="0" Color="#12B7F5"/>
+                <GradientStop Offset="1" Color="#0DA6E2"/>
+            </LinearGradientBrush>
+        </Button.Background>
+    </Button>
+</StackPanel>
+
+                <!-- 分享状态提示 -->
+                <Border IsVisible="{Binding IsShareStatusVisible}"
+                        Background="#20000000"
+                        CornerRadius="10"
+                        Padding="15,10"
+                        Margin="0,10,0,0"
+                        HorizontalAlignment="Center">
+                    <TextBlock Text="{Binding ShareStatus}" 
+                               Foreground="White"
+                               FontSize="14"
+                               HorizontalAlignment="Center"
+                               TextWrapping="Wrap"/>
+                </Border>
+<!-- 分享加载状态 -->
+<Border IsVisible="{Binding IsSharing}" 
+        Background="#80000000"
+        Padding="20"
+        CornerRadius="10"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        ZIndex="1000">
+    <StackPanel HorizontalAlignment="Center" 
+                VerticalAlignment="Center" 
+                Spacing="10">
+        <ProgressBar Width="40" Height="40" 
+                     IsIndeterminate="True" 
+                     Foreground="#4CAF50"/>
+        <TextBlock Text="处理中..." 
+                   Foreground="White" 
+                   FontSize="14"/>
+    </StackPanel>
+</Border>
+                
+                
             </StackPanel>
         </ScrollViewer>
     </Grid>
